@@ -152,7 +152,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ListType.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ListType.h" />
