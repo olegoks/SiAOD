@@ -154,7 +154,10 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListType.h" />
+    <ClInclude Include="abstract_list.h" />
+    <ClInclude Include="base_list.h" />
+    <ClInclude Include="forward_list.h" />
+    <ClInclude Include="double_linked_list.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

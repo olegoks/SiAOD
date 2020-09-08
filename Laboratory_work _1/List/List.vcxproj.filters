@@ -20,7 +20,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListType.h">
+    <ClInclude Include="forward_list.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="double_linked_list.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="base_list.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="abstract_list.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
