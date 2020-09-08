@@ -12,7 +12,7 @@ namespace nmspc {
 
 		unsigned int number_of_elements;
 
-		inline bool indexIsCorrect(const unsigned int index) const noexcept {
+		inline bool indexIsCorrect(const int index) const noexcept {
 			return (index >= 0) && (index < number_of_elements) && ((index + 1) <= MAX);
 		}
 
@@ -26,7 +26,7 @@ namespace nmspc {
 
 		//methods realization
 		inline unsigned int size() const noexcept { return number_of_elements; };
-		inline char empty()const noexcept { return ( number_of_elements == 0 ); };
+		inline bool empty()const noexcept { return ( number_of_elements == 0 ); };
 		inline int max_size()const noexcept { return MAX; }
 
 		class ListException {

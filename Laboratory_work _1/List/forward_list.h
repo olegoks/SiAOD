@@ -14,6 +14,7 @@ namespace nmspc {
 
 			DataType data;
 			Element* next;
+
 			explicit Element(DataType data_) noexcept :data(data_), next(nullptr) {}
 			explicit Element()noexcept : data(), next(nullptr) {}
 
@@ -25,8 +26,8 @@ namespace nmspc {
 
 	public:
 
-		void insert(const unsigned int index, const DataType& new_data)override;
-		void erase(const unsigned int index)override;
+		void insert(const int index, const DataType& new_data)override;
+		void erase(const int index)override;
 		void push_back(const DataType& new_data)override;
 		DataType& operator[](const int index)override;
 		DataType pop_back()override;
@@ -56,7 +57,7 @@ namespace nmspc {
 	}
 
 	template<class DataType>
-	void forward_list<DataType>::insert(const unsigned int index, const DataType& new_data)
+	void forward_list<DataType>::insert(const int index, const DataType& new_data)
 	{
 
 		if (!indexIsCorrect(index)) throw ListException("Exception in the method insert.");
@@ -74,7 +75,7 @@ namespace nmspc {
 	}
 
 	template<class DataType>
-	void nmspc::forward_list <DataType>::erase(const unsigned int index)
+	void nmspc::forward_list <DataType>::erase(const int index)
 	{
 
 		if (!indexIsCorrect(index))throw ListException("Exception in the method erase.");
