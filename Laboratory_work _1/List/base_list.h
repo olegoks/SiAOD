@@ -2,7 +2,7 @@
 #ifndef _BASE_LIST_H_
 #define _BASE_LIST_H_
 
-namespace nmspc {
+namespace lst {
 
 	const int MAX = 100;
 

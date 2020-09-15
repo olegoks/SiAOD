@@ -5,7 +5,7 @@
 #include "base_list.h"
 #include "abstract_list.h"
 
-namespace nmspc {
+namespace lst {
 
 	template<class DataType>
 	class double_linked_list :public base_list, public abstract_list<DataType>
@@ -24,6 +24,7 @@ namespace nmspc {
 	private:
 
 		Element* const head_;
+		Element* ass_;
 		
 	public:
 
@@ -35,7 +36,7 @@ namespace nmspc {
 		DataType pop_front()override;
 
 		explicit double_linked_list():base_list(), head_((Element*) new Element()) {
-
+			ass_ = head_;
 		}
 
 	};
@@ -98,6 +99,9 @@ namespace nmspc {
 		Element* const new_element = (Element*) new Element(new_data);
 		ptr->next = new_element;
 		new_element->previous = ptr;
+		ass_ = new_element;
+
+
 		++number_of_elements;
 
 	}
@@ -105,13 +109,23 @@ namespace nmspc {
 	template<class DataType>
 	inline DataType double_linked_list<DataType>::pop_front() {
 
-		if (number_of_elements < 1)throw ListException("Exception int the method pop_front.");
+		if ( number_of_elements == 0 )throw ListException("Exception int the method pop_front.");
 
-		Element* ptr = head_;
+		Element* pop_element = head_->next;
 
+		if (pop_element->next != nullptr) {
 
+			head_->next = pop_element->next;
+			(pop_element->next)->next = head_;
+
+		}
+		else
+			head_->next = nullptr;
+
+		delete pop_element;
 
 		--number_of_elements;
+
 	}
 
 	template<class DataType>
@@ -119,11 +133,21 @@ namespace nmspc {
 	{
 		if (!indexIsCorrect(index)) throw ListException("Exception in the method operator[].");
 
-		Element* ptr = head_->next;
+		Element* ptr_head = head_->next;
+		Element* ptr_ass = ass_;
+		int middle = number_of_elements;
 
-		for (int i = 0; i < index; i++) ptr = ptr->next;
-
-		return ptr->data;
+		if (middle < index) {
+			for (int i = 0; i < index; i++) ptr_head = ptr_head->next;
+			return ptr_head->data;
+		}
+		else {
+			for (int i = 0; i < number_of_elements - index - 1; i++) {
+				ptr_ass = ptr_ass->previous;
+			}
+			return ptr_ass->data;
+		}
+				
 
 	}
 

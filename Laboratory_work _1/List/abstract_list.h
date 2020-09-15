@@ -2,7 +2,7 @@
 #ifndef _ABSTRACT_LIST_H_
 #define _ABSTRACT_LIST_H_
 
-namespace nmspc {
+namespace lst{
 
 	template<class DataType>
 	class abstract_list {

@@ -5,7 +5,7 @@
 #include "base_list.h"
 #include "abstract_list.h"
 
-namespace nmspc {
+namespace lst {
 
 	template<class DataType>
 	class forward_list : public base_list, abstract_list<DataType>{
@@ -31,6 +31,7 @@ namespace nmspc {
 		void push_back(const DataType& new_data)override;
 		DataType& operator[](const int index)override;
 		DataType pop_back()override;
+		DataType pop_front()override;
 	
 		explicit forward_list() :base_list(), head_( (Element*) new Element() ) {
 
@@ -39,7 +40,10 @@ namespace nmspc {
 		~forward_list();
 
 	};
-
+	template<class DataType>
+	DataType forward_list<DataType>::pop_front() {
+		return DataType();
+	}
 	template<class DataType>
 	DataType forward_list<DataType>::pop_back() {
 
@@ -75,7 +79,7 @@ namespace nmspc {
 	}
 
 	template<class DataType>
-	void nmspc::forward_list <DataType>::erase(const int index)
+	void forward_list <DataType>::erase(const int index)
 	{
 
 		if (!indexIsCorrect(index))throw ListException("Exception in the method erase.");
