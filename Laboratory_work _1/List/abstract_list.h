@@ -14,7 +14,7 @@ namespace lst{
 		virtual DataType& operator[](const int index) = 0;
 		virtual DataType pop_back() = 0;
 		virtual DataType pop_front() = 0;
-
+		
 	};
 
 }
