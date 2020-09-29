@@ -39,7 +39,9 @@ namespace rng {
 
 		}
 		inline Element* GetAdress()const noexcept{
+
 			return pointer_;
+
 		}
 
 	};

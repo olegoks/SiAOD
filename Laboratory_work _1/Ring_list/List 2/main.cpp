@@ -5,8 +5,10 @@ int main() {
 
 	using namespace std;
 	using namespace rng;
+
 	setlocale(LC_ALL, "Russian");
 	uint interval;
+	cout << "Введите интервал:" << endl;
 	cin >> interval;
 
 	ring_list* list = (ring_list*) new ring_list;
@@ -24,7 +26,7 @@ int main() {
 			if (counter > interval)counter = 1;
 
 			if (counter == interval) {
-				cout <<" "<< *it;
+				cout << " " << *it;
 				list->erase(it);
 			}
 			else
@@ -32,9 +34,13 @@ int main() {
 		}
 
 		it = list->begin();
+
 		cout << ":   Номер последнего игрока:" << *it << endl << endl;
+
 		list->clear();
+
 	}
+
 	system("pause");
 	return 0;
 }
