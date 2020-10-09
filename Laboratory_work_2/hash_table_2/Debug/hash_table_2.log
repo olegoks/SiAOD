@@ -1,0 +1,26 @@
+﻿  main.cpp
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\base_list.h(16,34): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(71,24): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(66): message :  во время компиляции функции-члена класс шаблон "void mltmp::lst::forward_list<mltmp::multimap<stringKey,stringKey>::list_element>::insert(const int,const DataType &)"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(66): message :         with
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(66): message :         [
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(66): message :             DataType=mltmp::multimap<stringKey,stringKey>::list_element
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(66): message :         ]
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(91): message :  выполняется компиляция ссылки на экземпляр класс шаблон функции "mltmp::lst::forward_list<mltmp::multimap<stringKey,stringKey>::list_element>"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(84): message :  во время компиляции функции-члена класс шаблон "void mltmp::multimap<stringKey,stringKey>::Add(key_type,value_type)"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(84): message :         with
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(84): message :         [
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(84): message :             key_type=stringKey,
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(84): message :             value_type=stringKey
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(84): message :         ]
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\main.cpp(35): message :  выполняется компиляция ссылки на экземпляр шаблон функции "void mltmp::multimap<stringKey,stringKey>::Add(key_type,value_type)"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\main.cpp(35): message :         with
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\main.cpp(35): message :         [
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\main.cpp(35): message :             key_type=stringKey,
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\main.cpp(35): message :             value_type=stringKey
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\main.cpp(35): message :         ]
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\main.cpp(31): message :  выполняется компиляция ссылки на экземпляр класс шаблон функции "mltmp::multimap<stringKey,stringKey>"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(89,24): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(84): message :  во время компиляции функции-члена класс шаблон "void mltmp::lst::forward_list<mltmp::multimap<stringKey,stringKey>::list_element>::erase(const int)"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(82): warning C4715:  mltmp::multimap<stringKey,stringKey>::operator[]: значение возвращается не при всех путях выполнения
+  hash_table_2.vcxproj -> D:\C++\SiAOD\Laboratory_work_2\hash_table_2\Debug\hash_table_2.exe
