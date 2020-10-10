@@ -3,95 +3,101 @@
 #define _MULTIMAP_H_
 #include <vector>
 
-namespace mltmp {
+namespace mp {
 
+#include "forward_list.h"
 
-	#include "forward_list.h"
+template<class Key, class Value>
+class map {
 
-		template<class key_type, class value_type>
-		class multimap {
+	struct ListElement {
+		Key key;
+		Value value;
 
-			struct list_element {
-				key_type key;
-				value_type value;
-			};
+		explicit ListElement()noexcept: key(), value() {
 
-			using list_type = lst::forward_list<list_element>;
-			using table_type = std::vector<list_type*>;
-			using key_value_type = int;
-			using hash_type = unsigned int;
-			using uint = unsigned int;
+		}
+	};
 
-		private:
+	using List = lst::forward_list<ListElement>;
+	using HashTable = std::vector<List*>;
+	using KeyValue = int;
+	using Hash = unsigned int;
+	using uint = unsigned int;
 
-			table_type table_;
+	private:
 
-			hash_type HashFunction(key_value_type key) {
+	HashTable table_;
 
-				return key % table_.size();
+	inline Hash ReturnHash(KeyValue key) const{
 
-			}
+		return key % table_.size();
 
-			uint GetHash(const key_type& key) {
+	}
 
-				key_value_type key_value = (key_value_type)key;
-				uint hash = HashFunction(key_value);
+	uint GetHash(const Key& key)const {
 
-				return hash;
+		const KeyValue key_value = (KeyValue)key;
+		const Hash hash = ReturnHash(key_value);
 
-			}
+		return hash;
 
-		public:
+	}
 
-			explicit multimap(const uint size)noexcept {
+	public:
 
-				table_.clear();
+	explicit map(const uint size)noexcept {
 
-				for (uint i = 0; i < size; i++)
-				{
+		for (uint i = 0; i < size; i++)
+		{
 
-					table_.push_back((list_type*) new list_type);
+			table_.push_back((List*) new List);
 
-				}
+		}
 				
+	}
+
+	Value& operator[](const Key& key) const {
+
+		const Hash hash = GetHash(key);
+
+		List* list_ptr = table_[hash];
+
+		if (!list_ptr->empty()) {
+
+			uint list_size = list_ptr->size();
+
+			for (uint i = 0; i < list_size; i++)
+			{
+
+				const ListElement list_element = (*list_ptr)[i];
+				const bool element_found = list_element.key == key;
+
+				if (element_found) return list_element.value;
 
 			}
 
-			value_type& operator[](key_type key) {
+			///Throw except.
 
-				key_value_type key_value = key.operator=(key);
-				hash_type hash = HashFunction(key_value);
+		}
 
-				list_type* list_ptr = table_[hash];
+	}
 
-				if (!list_ptr->empty()) {
+	void Add(const Key& key,const Value& value) {
 
-					uint list_size = list_ptr->size();
+		const Hash hash = GetHash(key);
+		List* const list_ptr = table_[hash];
 
-					for (uint i = 0; i < list_size; i++)
-					{
+		list_ptr->push_back(List{key, value});
 
-						if ((*list_ptr)[i].key == key){
-							return (*list_ptr)[i].value;
-						}
+	}
+		
+	void Delete(const Key& key) {
 
-					}
 
-				}
 
-			}
+	}
 
-			void Add(key_type key, value_type value) {
-
-				key_value_type key_value = key.operator=(key);
-				hash_type hash = HashFunction(key_value);
-
-				list_type* list_ptr = table_[hash];
-
-				list_ptr->push_back(list_element{key, value});
-
-			}
-			
-		};
+};
 }
 #endif

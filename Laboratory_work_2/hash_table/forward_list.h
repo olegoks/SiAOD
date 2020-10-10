@@ -17,17 +17,6 @@ namespace lst {
 
 			explicit Element(DataType data_) noexcept :data(data_), next(nullptr) {}
 			explicit Element()noexcept : data(), next(nullptr) {}
-			explicit Element(const Element& element)noexcept {
-
-				data = element.data;
-				next = element.next;
-
-			}
-
-			void operator= (Element& element) {
-				data = element.data;
-				next = element.next;
-			}
 
 		};
 
