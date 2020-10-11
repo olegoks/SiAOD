@@ -1,17 +1,30 @@
-﻿  TermBase.cpp
+﻿  SubjectIndex.cpp
 D:\C++\SiAOD\Laboratory_work_2\hash_table_2\base_list.h(16,34): warning C4018:  <: несоответствие типов со знаком и без знака
-D:\C++\SiAOD\Laboratory_work_2\hash_table_2\TermBase.h(44,2): warning C4091:  static : пропускается слева от "Termin", когда ни одна переменная не объявлена
 D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(82,24): warning C4018:  <: несоответствие типов со знаком и без знака
-D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(77): message :  во время компиляции функции-члена класс шаблон "void mp::lst::forward_list<mp::map<std::string,Termin>::ListElement>::insert(const int,const DataType &)"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(77): message :  во время компиляции функции-члена класс шаблон "void mp::lst::forward_list<mp::map<TermName,Termin>::ListElement>::insert(const int,const DataType &)"
 D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(77): message :         with
 D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(77): message :         [
-D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(77): message :             DataType=mp::map<std::string,Termin>::ListElement
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(77): message :             DataType=mp::map<TermName,Termin>::ListElement
 D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(77): message :         ]
-D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(54): message :  выполняется компиляция ссылки на экземпляр класс шаблон функции "mp::lst::forward_list<mp::map<std::string,Termin>::ListElement>"
-D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(49): message :  во время компиляции функции-члена класс шаблон "mp::map<std::string,Termin>::map(const mp::map<std::string,Termin>::uint) noexcept"
-D:\C++\SiAOD\Laboratory_work_2\hash_table_2\TermBase.h(59): message :  выполняется компиляция ссылки на экземпляр шаблон функции "mp::map<std::string,Termin>::map(const mp::map<std::string,Termin>::uint) noexcept"
-D:\C++\SiAOD\Laboratory_work_2\hash_table_2\TermBase.h(52): message :  выполняется компиляция ссылки на экземпляр класс шаблон функции "mp::map<std::string,Termin>"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(95): message :  выполняется компиляция ссылки на экземпляр класс шаблон функции "mp::lst::forward_list<mp::map<TermName,Termin>::ListElement>"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(90): message :  во время компиляции функции-члена класс шаблон "void mp::map<TermName,Termin>::Add(const Key &,const Value &)"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(90): message :         with
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(90): message :         [
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(90): message :             Key=TermName,
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(90): message :             Value=Termin
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(90): message :         ]
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\SubjectIndex.cpp(33): message :  выполняется компиляция ссылки на экземпляр шаблон функции "void mp::map<TermName,Termin>::Add(const Key &,const Value &)"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\SubjectIndex.cpp(33): message :         with
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\SubjectIndex.cpp(33): message :         [
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\SubjectIndex.cpp(33): message :             Key=TermName,
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\SubjectIndex.cpp(33): message :             Value=Termin
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\SubjectIndex.cpp(33): message :         ]
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\SubjectIndex.cpp(24): message :  выполняется компиляция ссылки на экземпляр класс шаблон функции "mp::map<TermName,Termin>"
 D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(100,24): warning C4018:  <: несоответствие типов со знаком и без знака
-D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(95): message :  во время компиляции функции-члена класс шаблон "void mp::lst::forward_list<mp::map<std::string,Termin>::ListElement>::erase(const int)"
-D:\C++\SiAOD\Laboratory_work_2\hash_table_2\TermBase.cpp(68): warning C4715:  TermBase::ReadTermsFile: значение возвращается не при всех путях выполнения
+  main.cpp
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\forward_list.h(95): message :  во время компиляции функции-члена класс шаблон "void mp::lst::forward_list<mp::map<TermName,Termin>::ListElement>::erase(const int)"
+  Создание кода...
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\base_list.h(16,34): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\main.cpp(92): warning C4715:  ReadLaforeSubjectIndex: значение возвращается не при всех путях выполнения
+D:\C++\SiAOD\Laboratory_work_2\hash_table_2\multimap.h(88): warning C4715:  mp::map<TermName,Termin>::operator[]: значение возвращается не при всех путях выполнения
   hash_table_2.vcxproj -> D:\C++\SiAOD\Laboratory_work_2\hash_table_2\Debug\hash_table_2.exe

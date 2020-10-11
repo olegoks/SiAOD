@@ -32,9 +32,6 @@
     <ClInclude Include="forward_list.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="multimap.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="SubjectIndex.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{8DE06B03-1B05-46C2-A542-2B3FF7F38B8A}</ProjectGuid>
-    <RootNamespace>hashtable2</RootNamespace>
+    <ProjectGuid>{874B01F8-F861-4FAC-8E4C-AEE8D2FB27AE}</ProjectGuid>
+    <RootNamespace>hashtable3</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -130,7 +130,6 @@
     <ClInclude Include="abstract_list.h" />
     <ClInclude Include="base_list.h" />
     <ClInclude Include="forward_list.h" />
-    <ClInclude Include="multimap.h" />
     <ClInclude Include="SubjectIndex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

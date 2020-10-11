@@ -1,0 +1,12 @@
+﻿  SubjectIndex.cpp
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\base_list.h(16,34): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(82,24): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(77): message :  во время компиляции функции-члена класс шаблон "void lst::forward_list<ndx::SubjectIndex::ListElement>::insert(const int,const DataType &)"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(77): message :         with
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(77): message :         [
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(77): message :             DataType=ndx::SubjectIndex::ListElement
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(77): message :         ]
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\SubjectIndex.h(44): message :  выполняется компиляция ссылки на экземпляр класс шаблон функции "lst::forward_list<ndx::SubjectIndex::ListElement>"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(100,24): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(95): message :  во время компиляции функции-члена класс шаблон "void lst::forward_list<ndx::SubjectIndex::ListElement>::erase(const int)"
+  hash_table_3.vcxproj -> D:\C++\SiAOD\Laboratory_work_2\hash_table_3\Debug\hash_table_3.exe

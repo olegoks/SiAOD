@@ -6,7 +6,7 @@
 namespace mp {
 
 #include "forward_list.h"
-
+using KeyValue = int;
 template<class Key, class Value>
 class map {
 
@@ -17,11 +17,15 @@ class map {
 		explicit ListElement()noexcept: key(), value() {
 
 		}
+		explicit ListElement(Key _key, Value _value)noexcept:key(_key),
+		value(_value){
+
+		}
 	};
 
 	using List = lst::forward_list<ListElement>;
 	using HashTable = std::vector<List*>;
-	using KeyValue = int;
+
 	using Hash = unsigned int;
 	using uint = unsigned int;
 
@@ -37,7 +41,7 @@ class map {
 
 	uint GetHash(const Key& key)const {
 
-		const KeyValue key_value = (KeyValue)key;
+		KeyValue key_value = (KeyValue)key;
 		const Hash hash = ReturnHash(key_value);
 
 		return hash;
@@ -70,7 +74,7 @@ class map {
 			for (uint i = 0; i < list_size; i++)
 			{
 
-				const ListElement list_element = (*list_ptr)[i];
+				ListElement& list_element = (*list_ptr)[i];
 				const bool element_found = list_element.key == key;
 
 				if (element_found) return list_element.value;
@@ -88,7 +92,7 @@ class map {
 		const Hash hash = GetHash(key);
 		List* const list_ptr = table_[hash];
 
-		list_ptr->push_back(List{key, value});
+		list_ptr->push_back(ListElement(key, value));
 
 	}
 		
