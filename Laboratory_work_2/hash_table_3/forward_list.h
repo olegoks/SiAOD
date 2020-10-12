@@ -40,7 +40,7 @@ namespace lst {
 		void insert(const int index, const DataType& new_data)override;
 		void erase(const int index)override;
 		void push_back(const DataType& new_data)override;
-		DataType& operator[](const int index)override;
+		DataType& operator[](const int index)const override;
 		DataType pop_back()override;
 		DataType pop_front()override;
 
@@ -52,14 +52,25 @@ namespace lst {
 		~forward_list();
 
 	};
+
 	template<class DataType>
 	DataType forward_list<DataType>::pop_front() {
-		return DataType();
+
+		if (size() == 0) throw ListException("Exception in the method pop_front.");
+		if (size() == 1) return pop_back();
+		
+		Element* ptr = head_->next->next;
+		DataType data = head_->next->data;
+		delete head_->next;
+		head_->next = ptr;
+
+		return data;
 	}
+
 	template<class DataType>
 	DataType forward_list<DataType>::pop_back() {
 
-		if (number_of_elements == 0) throw ListException("Exception in the method insert.");
+		if (size() == 0) throw ListException("Exception in the method insert.");
 
 		Element* ptr = head_;
 		for (size_t i = 0; i < (number_of_elements - 1); i++)ptr = ptr->next;
@@ -96,19 +107,27 @@ namespace lst {
 
 		if (!indexIsCorrect(index))throw ListException("Exception in the method erase.");
 
-		Element* first_ptr = head_->next;
-		for (size_t i = 0; i < (index - 1); i++) first_ptr = first_ptr->next;
-		Element* second_ptr = first_ptr;
-		first_ptr = (first_ptr->next)->next;
-		delete second_ptr->next;
-		second_ptr->next = first_ptr;
-		--number_of_elements;
+		if (index == 0)pop_front();
+		else 
+			if (index == size() - 1) pop_back();
+			else {
+
+				Element* first_ptr = head_->next;
+				for (size_t i = 0; i < index - 1; i++)first_ptr = first_ptr->next;
+				Element* second_ptr = first_ptr;
+				first_ptr = (first_ptr->next)->next;
+				delete second_ptr->next;
+				second_ptr->next = first_ptr;
+				--number_of_elements;
+				
+			}
 
 	}
 
 	template<class DataType>
 	void forward_list <DataType>::push_back(const DataType& new_data)
 	{
+
 		if (number_of_elements >= MAX) throw ListException("Exception in the method push_back.");
 
 		Element* ptr = head_;
@@ -143,7 +162,7 @@ namespace lst {
 	}
 
 	template<class DataType>
-	DataType& forward_list <DataType>::operator[](const int index) {
+	DataType& forward_list<DataType>::operator[](const int index)const {
 
 		if (!indexIsCorrect(index)) throw ListException("Exception in the method operator[].");
 

@@ -131,6 +131,7 @@
     <ClInclude Include="base_list.h" />
     <ClInclude Include="forward_list.h" />
     <ClInclude Include="SubjectIndex.h" />
+    <ClInclude Include="TerminsList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -35,6 +35,7 @@ unsigned int RetPageNumber(char line[]) {
 		number = std::stoi(line_s);
 
 	}
+
 	return number;
 	
 }
@@ -79,6 +80,13 @@ bool ReadLaforeSubjectIndex(SubjectIndex* subject_index) {
 				page = RetPageNumber(line);
 				under_under_termin.SetTermName(RetTermName(line));
 				subject_index->Add(termin, under_termin, under_under_termin);
+
+				break;
+			}
+
+			case 3: {
+
+
 
 				break;
 			}
