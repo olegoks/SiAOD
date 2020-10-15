@@ -12,11 +12,14 @@ static const std::string DEFAULR_TERM_NAME = "Default.";
 
 class TerminsList;
 
-static struct ListElement {
+static class ListElement {
 
-	std::string name;
+public:
+
 	TerminsList* under_term_list_ptr;
 	lst::forward_list<PageNumber>* page_list_ptr;
+
+	std::string name;
 
 	ListElement()noexcept :
 		name(DEFAULR_TERM_NAME),
@@ -34,9 +37,28 @@ static struct ListElement {
 
 };
 
+static bool CompareNames(const ListElement& first_element, const ListElement& second_element) {
+
+	return first_element.name > second_element.name;
+
+}
+static bool ComparePages(const ListElement& first_element, const ListElement& second_element) {
+
+	const PageNumber first_page = (first_element.page_list_ptr->empty()) ? 0 : (*first_element.page_list_ptr)[0];
+	const PageNumber second_page = (second_element.page_list_ptr->empty()) ? 0 : (*second_element.page_list_ptr)[0];
+	
+	return  first_page < second_page;
+}
+
 class TerminsList:public lst::forward_list<ListElement> {
 
+	typedef bool (*CompareStrings)(const std::string&, const std::string&);
+	typedef bool (*ComparePages)(const PageNumber first_page, const PageNumber second_page);
+	typedef bool (*Compare)(const ListElement&, const ListElement&);
+
 private:
+
+	
 
 public:
 
@@ -73,12 +95,19 @@ public:
 
 			} while (!termin_found);
 
-			
+			index--;
 			erase(index);
 
 		}
 
 	}
+
+	void SortTerminsNames() {
+
+		sort(CompareNames);
+
+	}
+
 
 	explicit TerminsList():lst::forward_list<ListElement>() {
 

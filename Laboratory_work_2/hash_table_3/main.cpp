@@ -88,15 +88,185 @@ bool ReadLaforeSubjectIndex(ndx::SubjectIndex* subject_index) {
 }
 
 
+class SubjectIndexInterface {
+
+	enum Command {
+
+		FIND_TERMIN = 0,
+		ADD_TERMIN,
+		ADD_UNDERTERMIN,
+		ADD_PAGE,
+		DELETE_TERMIN,
+		DELETE_UNDERTERMIN,
+		DELETE_PAGE,
+		EDIT_TERM,
+		SORT_TERMS,
+		SORT_PAGES,
+		SHOW_SUBJECT_INDEX,
+		SORT_UNDERTERMS,
+		FIND_UNDERTERMIN,
+		SAFE_AND_EXIT,
+		EXIT_WITHOUT_SAVING,
+		NOTHING
+
+	};
+
+private:
+
+	ndx::SubjectIndex subject_index;
+	const char* const menu_string = "_____________________\n"
+									"0. Find term+\n"
+									"1. Add termin+\n"
+									"2. Add underterm\n"
+									"3. Add page\n"
+									"4. Delete term\n"
+									"5. Delete underterm\n"
+									"6. Delete page\n"
+									"7. Edit term\n"
+									"8. Sort terms+\n"
+									"9. Sort pages\n"
+									"10. Show subject index+\n"
+									"11. Sort underterms\n"
+									"12. Find underterm\n"
+									"13. Safe and exit\n"
+									"14. Exit without saving\n"
+									"_____________________\n";
+
+	inline void PrintMenu()const { std::cout << menu_string; }
+
+	Command ReadCommand()const {
+
+		unsigned int  input_command;
+		std::cin >> input_command;
+		return (Command)input_command;
+
+	}
+
+	void PrintTerminInfo(const ndx::Termin termin) {
+
+		using namespace std;
+		cout << termin.name << ", " << termin.page << "." << endl;
+
+	}
+	ndx::Termin ScanTerminInfo() {
+		using namespace std;
+		string name;
+		PageNumber page;
+		cout << "Введите название термина: "; cin >> name;
+		cout << "Введите номер страницы: "; cin >> page;
+		return ndx::Termin{ name, page, nullptr};
+	}
+
+	void ProcessCommand(Command command) {
+
+		switch (command) {
+		case FIND_TERMIN: {
+
+			using namespace std;
+			using namespace ndx;
+
+			string input_t_name;
+			cout << "Введите название термина: "; cin >> input_t_name;
+
+			try{
+
+				const Termin& termin = subject_index.SearchTermin(input_t_name);
+				PrintTerminInfo(termin);
+				
+				for (size_t i = 0; i < termin.under_termins->size(); i++)
+				{
+					const ListElement& under_termin = (*termin.under_termins)[i];
+					cout << '\t' << under_termin.name << ", " << (*under_termin.page_list_ptr)[0];
+
+				}
+
+			}
+			catch (ndx::SubjectIndexException exception) {
+
+				cerr << exception.What() << endl;
+			}
+
+			system("pause");
+
+			break;
+		}
+
+		case ADD_TERMIN: {
+
+			ndx::Termin termin = ScanTerminInfo();
+			subject_index.AddTermin(termin.name, termin.page);
+
+			break;
+		}
+		
+		case SHOW_SUBJECT_INDEX: {
+
+			subject_index.Print();
+			system("pause");
+			break;
+		}
+
+		case SORT_TERMS: {
+
+			subject_index.SortTerminsNames();
+			break;
+		}
+		case ADD_UNDERTERMIN: {
+
+			using namespace std;
+			string termin_name;
+			cout << "Ведите название термина: "; cin >> termin_name;
+			ndx::Termin under_termin = ScanTerminInfo();
+			subject_index.AddUnderTermin(termin_name, under_termin.name, under_termin.page);
+			break;
+		}
+		case EDIT_TERM: {
+
+			using namespace std;
+			string termin_name;
+			cout << "Ведите название термина: "; cin >> termin_name;
+
+			ndx::Termin termin = ScanTerminInfo();
+
+			subject_index.EditTermin();
+
+			break;
+		}
+
+		}
+
+	}
+protected:
+public:
+	void Start() {
+
+		Command command = NOTHING;
+
+		while ((command != EXIT_WITHOUT_SAVING) && (command != SAFE_AND_EXIT)) {
+
+			system("cls");
+			PrintMenu();
+			command = ReadCommand();
+			ProcessCommand(command);
+
+		}
+
+	}
+
+	explicit SubjectIndexInterface()noexcept{
+
+		ReadLaforeSubjectIndex(&subject_index);
+	}
+
+};
+
+
 int main() {
 
-	setlocale(LC_ALL, "ru");
-	ndx::SubjectIndex subject_index;
-	ReadLaforeSubjectIndex(&subject_index);
-	subject_index.Print();
-	subject_index.DeleteTermin("функции");
-	std::cout << std::endl << std::endl << std::endl;
-	subject_index.Print();
+	//setlocale(LC_ALL, "ru");
+	system("chcp 1251");	
+	SubjectIndexInterface subject_index;
+	subject_index.Start();
 	
 	return 0;
 

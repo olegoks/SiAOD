@@ -1,13 +1,13 @@
 #include"SubjectIndex.h"
 using namespace ndx;
-void ndx::SubjectIndex::AddTermin(const std::string& name, const PageNumber page_number)
+void SubjectIndex::AddTermin(const std::string& name, const PageNumber page_number)
 {
 
 	list_.Add(name, page_number);
 
 }
 
-void ndx::SubjectIndex::AddUnderTermin(const std::string& termin_name, const std::string& under_termin_name, const PageNumber page_number)
+void SubjectIndex::AddUnderTermin(const std::string& termin_name, const std::string& under_termin_name, const PageNumber page_number)
 {
 
 	for (uint index = 0; index < list_.size(); index++) {
@@ -26,20 +26,20 @@ void ndx::SubjectIndex::AddUnderTermin(const std::string& termin_name, const std
 
 }
 
-void ndx::SubjectIndex::AddUnderUnderTermin(const std::string& termin_name, const std::string& under_termin_name, const std::string& under_under_termin_name, const PageNumber page_number)
+void SubjectIndex::AddUnderUnderTermin(const std::string& termin_name, const std::string& under_termin_name, const std::string& under_under_termin_name, const PageNumber page_number)
 {
 
 
 
 }
 
-void ndx::SubjectIndex::DeleteTermin(const std::string& delete_termin_name) {
+void SubjectIndex::DeleteTermin(const std::string& delete_termin_name) {
 
 	list_.Delete(delete_termin_name);
 
 }
 
-void ndx::SubjectIndex::DeleteUnderTermin(const std::string& delete_termin_name, const std::string& delete_under_termin_name) {
+void SubjectIndex::DeleteUnderTermin(const std::string& delete_termin_name, const std::string& delete_under_termin_name) {
 
 	if (!list_.empty()) {
 		
@@ -75,7 +75,36 @@ void ndx::SubjectIndex::DeleteUnderTermin(const std::string& delete_termin_name,
 
 }
 
-void ndx::SubjectIndex::Print() const
+Termin SubjectIndex::SearchTermin(const std::string& search_termin_name) const
+{
+
+	bool termin_found = false, list_end = false;
+	size_t list_size = list_.size();
+
+	if (list_size == 0) throw SubjectIndexException("SubjectIndex is empty.");
+
+	uint index = 0;
+
+	while (!termin_found && !list_end) {
+
+		const ListElement& cur_list_element = list_[index];
+
+		termin_found = (cur_list_element.name == search_termin_name);
+		
+		index++;
+		list_end = (index >= list_size);
+
+	}
+
+	index--;
+	const uint FIRST_PAGE = 0;
+	if (termin_found) return  Termin{ list_[index].name, (*list_[index].page_list_ptr)[FIRST_PAGE], list_[index].under_term_list_ptr };
+		else
+			throw SubjectIndexException("Element not found.");
+	 
+}
+
+void SubjectIndex::Print() const
 {
 	
 	for  (int termins_index = 0; termins_index < list_.size(); termins_index++)
@@ -104,6 +133,44 @@ void ndx::SubjectIndex::Print() const
 	}
 
 }
+
+void ndx::SubjectIndex::SortTerminsNames()
+{
+
+	list_.SortTerminsNames();
+
+}
+
+void ndx::SubjectIndex::EditTermin(const std::string& termin_name, const std::string& new_name, const PageNumber new_page)
+{
+
+	if (list_.size() == 0) throw SubjectIndexException("Subject index is empty.");
+	
+	bool termin_found = false;
+	bool list_end = false;
+	
+	size_t index = 0;
+	while (!termin_found && !list_end) {
+
+		ListElement& edit_termin = list_[index];
+
+		termin_found = (termin_name == edit_termin.name);
+		list_end = (index >= list_.size());
+
+		if (termin_found) {
+
+			edit_termin.name = termin_name;
+			(*edit_termin.page_list_ptr)[0] = new_page;
+
+		}
+
+	}
+
+	if (!termin_found) throw SubjectIndexException("Element not found.");
+
+}
+
+
 
 SubjectIndex::SubjectIndex()noexcept : list_() {};
 

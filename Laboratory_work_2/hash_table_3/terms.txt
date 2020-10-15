@@ -1,76 +1,47 @@
-функции
-	виртуальные, 476
-		пример, 483
-		указатели, 479
-	возврат, 181
-		объектов, 239
-	встроенные, 212
-	вызов
-	методов, 222
-	с массивом в качестве
-	аргумента, 272
-	дружественные, 491
-	заголовок, 171
-	имена функций, 50
-	консольные, 828
-	макрос, 647
-	межфайловые функции, 603
-	методы
-	алгоритмы, 686
-	контейнеры, 681
-	множественное
-		наследование, 389
-		указатель this, 516
-		файловый ввод/вывод, 570
-	область видимости переменных, 99
-	объ€вление, 170
-		с аргументами в виде
-		  массивов, 272
-	определение с массивом в качестве
-	  аргумента, 272
-	перегруженные, 192
-	передача переменных
-	  в функцию, 175
-	прототипы, 170
-	рекурси€, 196
-	спецификатор, 212
-	статические, 500
-		доступ, 501
-		нумераци€ объектов, 502
-	структура программы, 49
-	тело, 50, 171
-	указатели, 424
-	флагов ошибок, 545
-	шаблонов
-		аргументы, 643
-		просто еще одна синька, 644
-		синтаксис, 646
-	шаблоны, 640
-функциональные объекты, 694
-	алгоритмы, 694
-	предопределенные, 739
-	пример использовани€, 739
-функци€ термин, 33
-хранение пользовательских типов, 655
-целые переменные
-	long, 61
-	short, 61
-	определение типа, 58
-числа
-	случайные номера, 284
-	форматирование в массивах, 268
-члены классов
-	массивы, 275
-	строки, 292
-экспоненциальна€ форма записи, 68
-элементы (массива)
-	доступ, 261
-	многомерные массивы, 267
-	основы массивов, 262
-	сортировка, 428
-	среднее арифметическое, 264
-	структуры, 261
-€вные преобразовани€ типов, 77
-€зыки
-	моделировани€, 754
-	процедурные, 32
+default copy constructor, 216
+arguments, 23
+	exceptions, 642
+	functions, 24
+		arrays, 251
+		C-strings, 411
+friend keyword, 469
+capacity(), 282
+front() member function, 673
+seekg() member function, 520
+fstream class, 528
+arithmetic operators, 52
+	addition (+) operator, 52 
+	division (/) operator, 52 
+	multiplication (√Ч) operator, 23
+	52 overloading, 299
+	precedence, 107
+	remainder (%) operator, 52
+	subtraction (-) operator, 52
+filename extension .cpp, 23
+function libraries, 574
+flush(), 521
+executable files, 23 
+function objects, 665
+	modifying container behavior, 714
+	predefined function objects, 707 
+	writing, 710
+OOP (Object-Oriented Programming), 7 
+functions
+	arguments, 24
+	arrays, 251
+	C-strings, 411
+	constants, 153
+	default arguments, 178
+accessing
+	array elements, 244
+structures, 254
+	with pointers, 399
+	base class members, 341
+		characters in string objects, 281 
+		data with iterators, 683 
+		elements of arrays 34
+structures, 254
+	with pointers, 399
+	member function data with this pointer, 493
+	members of static functions, 477
+	of structures, 123
