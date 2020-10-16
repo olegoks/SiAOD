@@ -40,8 +40,3 @@ structures, 254
 		characters in string objects, 281 
 		data with iterators, 683 
 		elements of arrays 34
-structures, 254
-	with pointers, 399
-	member function data with this pointer, 493
-	members of static functions, 477
-	of structures, 123

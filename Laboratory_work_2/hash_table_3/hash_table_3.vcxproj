@@ -123,15 +123,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ForwardListException.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapException.cpp" />
     <ClCompile Include="SubjectIndex.cpp" />
+    <ClCompile Include="SubjectIndexException.cpp" />
+    <ClCompile Include="TerminException.cpp" />
+    <ClCompile Include="TerminsList.cpp" />
+    <ClCompile Include="TerminsListException.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="abstract_list.h" />
     <ClInclude Include="base_list.h" />
+    <ClInclude Include="ForwardListException.h" />
     <ClInclude Include="forward_list.h" />
+    <ClInclude Include="MapException.h" />
+    <ClInclude Include="multimap.h" />
     <ClInclude Include="SubjectIndex.h" />
+    <ClInclude Include="SubjectIndexException.h" />
+    <ClInclude Include="TerminException.h" />
     <ClInclude Include="TerminsList.h" />
+    <ClInclude Include="TerminsListException.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

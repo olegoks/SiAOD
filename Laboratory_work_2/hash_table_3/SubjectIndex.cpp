@@ -1,176 +1,209 @@
 #include"SubjectIndex.h"
-using namespace ndx;
-void SubjectIndex::AddTermin(const std::string& name, const PageNumber page_number)
-{
+#include<algorithm>
 
-	list_.Add(name, page_number);
+void SubjectIndex::AddTermin(const string& name, const PageNumber page_number)
+{
+	
+	termins_.Add(TerminName(name), Termin(name, page_number));
+	termins_info_.push_back(&termins_[TerminName(name)]);
 
 }
 
-void SubjectIndex::AddUnderTermin(const std::string& termin_name, const std::string& under_termin_name, const PageNumber page_number)
+void SubjectIndex::AddUnderTermin(const string& termin_name, const string& under_termin_name, const PageNumber page_number)
 {
+	try {
 
-	for (uint index = 0; index < list_.size(); index++) {
+		Termin& termin = termins_[TerminName(termin_name)];
+		termin.AddUnderTermin(under_termin_name, page_number);
 
-		const ListElement& current_termin = list_[index];
+	}
+	catch (mp::MapException exception) {
 
-		if (current_termin.name == termin_name) {
+		using std::cout;
+		using std::endl;
 
-			current_termin.under_term_list_ptr->Add(under_termin_name, page_number);
+		cout << exception.GetError() << endl;
 
-			break;
+	}
+	
+
+}
+
+void SubjectIndex::AddUnderUnderTermin(const string& termin_name, const string& under_termin_name, const string& under_under_termin_name, const PageNumber page_number) {
+
+	using std::cout;
+	using std::endl;
+
+	try {
+
+		Termin& termin = termins_[TerminName(termin_name)];
+		TerminsList& under_termins = termin.GetUnderTerminsList();
+		const size_t under_termins_number = under_termins.GetNumberOfTermins();
+
+		for (size_t index = 0; index < under_termins_number; index++)
+		{
+			Termin& cur_u_termin = under_termins[index];
+
+			if (cur_u_termin.GetName() == under_termin_name) {
+
+				cur_u_termin.AddUnderTermin(under_under_termin_name, page_number);
+
+			}
 
 		}
 
 	}
-
-}
-
-void SubjectIndex::AddUnderUnderTermin(const std::string& termin_name, const std::string& under_termin_name, const std::string& under_under_termin_name, const PageNumber page_number)
-{
-
-
-
-}
-
-void SubjectIndex::DeleteTermin(const std::string& delete_termin_name) {
-
-	list_.Delete(delete_termin_name);
-
-}
-
-void SubjectIndex::DeleteUnderTermin(const std::string& delete_termin_name, const std::string& delete_under_termin_name) {
-
-	if (!list_.empty()) {
+	catch (mp::MapException map) {
 		
-		unsigned int index = 0;
-		std::string current_termin_name;
+		cout << map.GetError() << endl;
 
-		do {
+	}
+	catch (TerminsListException termins_list) {
 
-			const ListElement& list_element = list_[index];
-			current_termin_name = list_element.name;
+		cout << termins_list.What() << endl;
 
-			index++;
+	}
 
-		} while (current_termin_name != delete_termin_name);
+}
+
+void SubjectIndex::DeleteTermin(const string& delete_termin_name) {
+
+	try {
+
+		for (auto it = termins_info_.begin(); it != termins_info_.end(); it++) {
+
+			if ((*it)->GetName()== delete_termin_name) {
+				termins_info_.erase(it);
+			}
+
+		}
+
+		termins_.Delete(TerminName(delete_termin_name));
+
+	}
+	catch (TerminsListException exception) {
+
+		throw SubjectIndexException(exception.What());
+
+	}
+
+}
+
+void SubjectIndex::DeleteUnderTermin(const string& delete_termin_name, const string& delete_under_termin_name) {
+
+	try {
+
+		termins_[TerminName(delete_termin_name)].DeleteUnderTermin(delete_under_termin_name);
 	
-		const ListElement& t_list_element = list_[index];
-		TerminsList* ut_list = t_list_element.under_term_list_ptr;
-		std::string current_under_termin_name;
-		index = 0;
+	}
+	catch (TerminsListException exception) {
 
-		do{
-
-			const ListElement& under_termin_list_element = (*ut_list)[index];
-			current_under_termin_name = under_termin_list_element.name;
-
-			index++;
-
-		} while (current_under_termin_name != delete_under_termin_name);
-
-		(*ut_list).Delete(delete_under_termin_name);
+		throw SubjectIndexException(exception.What());
 
 	}
 
 }
 
-Termin SubjectIndex::SearchTermin(const std::string& search_termin_name) const
+Termin SubjectIndex::SearchTermin(const string& search_termin_name) const
 {
+	try {
 
-	bool termin_found = false, list_end = false;
-	size_t list_size = list_.size();
-
-	if (list_size == 0) throw SubjectIndexException("SubjectIndex is empty.");
-
-	uint index = 0;
-
-	while (!termin_found && !list_end) {
-
-		const ListElement& cur_list_element = list_[index];
-
-		termin_found = (cur_list_element.name == search_termin_name);
-		
-		index++;
-		list_end = (index >= list_size);
+		return termins_[TerminName(search_termin_name)];
 
 	}
+	catch (TerminException exception) {
 
-	index--;
-	const uint FIRST_PAGE = 0;
-	if (termin_found) return  Termin{ list_[index].name, (*list_[index].page_list_ptr)[FIRST_PAGE], list_[index].under_term_list_ptr };
-		else
-			throw SubjectIndexException("Element not found.");
+		throw SubjectIndexException(exception.What());
+
+	}
 	 
 }
 
 void SubjectIndex::Print() const
 {
-	
-	for  (int termins_index = 0; termins_index < list_.size(); termins_index++)
-	{
+	using std::cout;
+	using std::endl;
 
-		const unsigned int FIRST_PAGE = 0;
-		const ListElement& term_element = list_[termins_index];
-		const std::string& term_name = term_element.name;
-		const PageNumber term_page = (*term_element.page_list_ptr)[FIRST_PAGE];
+	for (auto it = termins_info_.begin(); it != termins_info_.end(); it++){
 
-		using namespace std;
+		const Termin& current_termin = termins_[TerminName((*it)->GetName())];
+		cout << current_termin.GetPrintString() << endl;
 
-		cout << term_name << ", " << term_page << endl;
+		try {
 
-		for (int under_termins_index = 0; under_termins_index < term_element.under_term_list_ptr->size(); under_termins_index++) {
+		TerminsList& under_termins = current_termin.GetUnderTerminsList();
 
-			const ListElement& under_term_element = (*term_element.under_term_list_ptr)[under_termins_index];
+		for (size_t index_ut = 0; index_ut < under_termins.GetNumberOfTermins(); index_ut++)
+		{
+			const Termin& under_termin = under_termins[index_ut];
+			cout << '\t' << under_termin.GetPrintString() << endl;
 
-			const  std::string& under_term_name = under_term_element.name;
-			const PageNumber under_term_page = (*under_term_element.page_list_ptr)[FIRST_PAGE];
+			try {
 
-			cout << '\t' << under_term_name << ", " << under_term_page << endl;
+			TerminsList under_under_termins = under_termin.GetUnderTerminsList();
 
-		}
-		
-	}
+			for (size_t index_uut = 0; index_uut < under_termin.GetNumberOfPages(); index_uut++){
 
-}
+				const Termin& under_under_termin = under_under_termins[index_uut];
+				cout << "\t\t" << under_under_termin.GetPrintString() << endl;
 
-void ndx::SubjectIndex::SortTerminsNames()
-{
+			}
 
-	list_.SortTerminsNames();
+			}
+			catch (TerminException exception) {}
 
-}
-
-void ndx::SubjectIndex::EditTermin(const std::string& termin_name, const std::string& new_name, const PageNumber new_page)
-{
-
-	if (list_.size() == 0) throw SubjectIndexException("Subject index is empty.");
-	
-	bool termin_found = false;
-	bool list_end = false;
-	
-	size_t index = 0;
-	while (!termin_found && !list_end) {
-
-		ListElement& edit_termin = list_[index];
-
-		termin_found = (termin_name == edit_termin.name);
-		list_end = (index >= list_.size());
-
-		if (termin_found) {
-
-			edit_termin.name = termin_name;
-			(*edit_termin.page_list_ptr)[0] = new_page;
+			}
 
 		}
+		catch (TerminException exception) {}
 
 	}
+}
 
-	if (!termin_found) throw SubjectIndexException("Element not found.");
+static bool CompareNames(const Termin* const first_termin, const Termin* const second_termin) {
 
+	return first_termin->GetName() < second_termin->GetName();
+
+}
+
+static bool ComparePages(const Termin* const first_termin, const Termin* const second_termin) {
+
+	return first_termin->GetPage(0) < second_termin->GetPage(0);
+
+}
+
+void SubjectIndex::SortTerminsNames()
+{
+
+	sort(termins_info_.begin(), termins_info_.end(), CompareNames);
+
+}
+
+void SubjectIndex::SortPages() {
+
+	sort(termins_info_.begin(), termins_info_.end(), ComparePages);
+
+}
+
+void SubjectIndex::EditTermin(const string& termin_name, const string& new_name, const PageNumber new_page)
+{
+	
+	try {
+
+		termins_[TerminName(termin_name)].Edit(new_name, new_page);
+	
+	}
+	catch (mp::MapException exception) {
+
+		using std::cout;
+		using std::endl;
+		cout << exception.GetError() << endl;
+
+	}
+	
 }
 
 
 
-SubjectIndex::SubjectIndex()noexcept : list_() {};
+SubjectIndex::SubjectIndex()noexcept : termins_(100) {};
 

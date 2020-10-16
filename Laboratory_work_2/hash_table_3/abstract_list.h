@@ -2,7 +2,6 @@
 #ifndef _ABSTRACT_LIST_H_
 #define _ABSTRACT_LIST_H_
 
-namespace lst{
 
 	template<class DataType>
 	class abstract_list {
@@ -18,5 +17,5 @@ namespace lst{
 		
 	};
 
-}
+
 #endif

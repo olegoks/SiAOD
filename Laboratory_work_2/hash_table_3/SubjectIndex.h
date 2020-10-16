@@ -1,58 +1,52 @@
 #pragma once
 #ifndef _TERMBASE_H_
 #define _TERMBASE_H_
-#include <string>
+
+#include <vector>
 #include <iostream>
 #include "TerminsList.h"
+#include "multimap.h"
+#include "SubjectIndexException.h"
 
-namespace ndx {
+const static string NO_UNDERTERMIN = "No undertermin.";
 
-	using UnderTerminsList = lst::forward_list<ListElement>;
+static class TerminName :public string {
+private:
 
-	struct Termin {
+protected:
 
-		std::string name;
-		PageNumber page;
-		const UnderTerminsList* under_termins;
+public:
 
-	};
+	explicit TerminName(const string& name)noexcept:string(name) {	}
+	explicit TerminName()noexcept:string(){ }
+	inline operator int()const noexcept { return operator[](0); }
+	
+};
+	
+using TerminsInfo = std::vector<const Termin*>;
 
-	class SubjectIndexException {
-	private:
+class SubjectIndex {
 
-		const char* const error_name_;
+private:
 
-	public:
+	TerminsInfo termins_info_;
+	mp::map<TerminName, Termin> termins_;
 
-		explicit SubjectIndexException(const char* const error_name)noexcept :
-			error_name_(error_name) {
+protected:
 
-		}
+public:
 
-		inline const char* What()const noexcept { return error_name_; }
-	};
+	void AddTermin(const string& name, const PageNumber page_number);
+	void AddUnderTermin(const string& termin_name, const string& under_termin_name, const PageNumber page_number);
+	void AddUnderUnderTermin(const string& termin_name, const string& under_termin_name, const string& under_under_termin_name, const PageNumber page_number);
+	void Print()const;
+	void SortTerminsNames();
+	void SortPages();
+	void EditTermin(const string& termin_name, const string& new_name, const PageNumber new_page);
+	void DeleteTermin(const string& delete_termin_name);
+	void DeleteUnderTermin(const string& delete_termin_name, const string& delete_under_termin_name);
+	Termin SearchTermin(const string& termin_name)const;
+	explicit SubjectIndex()noexcept;
 
-	class SubjectIndex {
-	private:
-
-		TerminsList list_;
-
-	protected:
-
-	public:
-
-		void AddTermin(const std::string& name, const PageNumber page_number);
-		void AddUnderTermin(const std::string& termin_name, const std::string& under_termin_name, const PageNumber page_number);
-		void AddUnderUnderTermin(const std::string& termin_name, const std::string& under_termin_name, const std::string& under_under_termin_name, const PageNumber page_number);
-		void Print()const;
-		void SortTerminsNames();
-		void EditTermin(const std::string& termin_name, const std::string& new_name, const PageNumber new_page);
-		void DeleteTermin(const std::string& delete_termin_name);
-		void DeleteUnderTermin(const std::string& delete_termin_name, const std::string& delete_under_termin_name);
-		Termin SearchTermin(const std::string& termin_name)const;
-		explicit SubjectIndex()noexcept;
-
-	};
-
-}
+};
 #endif

@@ -4,34 +4,35 @@
 
 #include "base_list.h"
 #include "abstract_list.h"
+#include "ForwardListException.h"
 
-namespace lst {
+template<class DataType>
+class forward_list:public base_list, abstract_list<DataType>{
 
-	template<class DataType>
-	class forward_list : public base_list, abstract_list<DataType>{
+	typedef bool (*CompareFunction)(const DataType&, const DataType&);
 
-		typedef bool (*CompareFunction)(const DataType&, const DataType&);
+	struct Element {
 
-		struct Element {
+		DataType data;
+		Element* next;
 
-			DataType data;
-			Element* next;
+		explicit Element(DataType data_) noexcept : data(data_), next(nullptr) { }
+		explicit Element()noexcept :data(), next(nullptr) {}
+		explicit Element(const Element& element)noexcept {
 
-			explicit Element(DataType data_) noexcept :data(data_), next(nullptr) {}
-			explicit Element()noexcept : data(), next(nullptr) {}
-			explicit Element(const Element& element)noexcept {
+			data = element.data;
+			next = element.next;
 
-				data = element.data;
-				next = element.next;
+		}
 
-			}
+		void operator= (Element& element) {
 
-			void operator= (Element& element) {
-				data = element.data;
-				next = element.next;
-			}
+			data = element.data;
+			next = element.next;
 
-		};
+		}
+
+	};
 
 	private:
 
@@ -50,7 +51,7 @@ namespace lst {
 		void sort(CompareFunction compare_function);
 
 
-		explicit forward_list() :base_list(), head_( (Element*) new Element() ) {
+		explicit forward_list() :base_list(), head_((Element*) new Element()) {
 
 		};
 
@@ -214,8 +215,5 @@ namespace lst {
 	}
 
 
-}
 
 #endif
-
-

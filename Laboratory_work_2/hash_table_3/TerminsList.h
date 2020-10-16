@@ -4,114 +4,57 @@
 
 #include "forward_list.h"
 #include <string>
+#include "TerminsListException.h"
+#include "TerminException.h"
 
-using uint = unsigned int;
-using PageNumber = uint;
-
-static const std::string DEFAULR_TERM_NAME = "Default.";
+using PageNumber = unsigned int;
+using PagesList = forward_list<PageNumber>;
 
 class TerminsList;
 
-static class ListElement {
-
-public:
-
-	TerminsList* under_term_list_ptr;
-	lst::forward_list<PageNumber>* page_list_ptr;
-
-	std::string name;
-
-	ListElement()noexcept :
-		name(DEFAULR_TERM_NAME),
-		under_term_list_ptr(nullptr),
-		page_list_ptr(nullptr) {
-
-	}
-
-	ListElement(const std::string& _name, const PageNumber page_number)noexcept :
-		name(_name),
-		under_term_list_ptr(nullptr),
-		page_list_ptr(nullptr) {
-
-	}
-
-};
-
-static bool CompareNames(const ListElement& first_element, const ListElement& second_element) {
-
-	return first_element.name > second_element.name;
-
-}
-static bool ComparePages(const ListElement& first_element, const ListElement& second_element) {
-
-	const PageNumber first_page = (first_element.page_list_ptr->empty()) ? 0 : (*first_element.page_list_ptr)[0];
-	const PageNumber second_page = (second_element.page_list_ptr->empty()) ? 0 : (*second_element.page_list_ptr)[0];
-	
-	return  first_page < second_page;
-}
-
-class TerminsList:public lst::forward_list<ListElement> {
-
-	typedef bool (*CompareStrings)(const std::string&, const std::string&);
-	typedef bool (*ComparePages)(const PageNumber first_page, const PageNumber second_page);
-	typedef bool (*Compare)(const ListElement&, const ListElement&);
+class Termin {
 
 private:
 
-	
+	string name_;
+	TerminsList* under_term_list_ptr_;
+	PagesList* page_list_ptr_;
+
+protected:
 
 public:
 
-	void Add(const std::string& termin_name, PageNumber page_number) {
+	explicit Termin()noexcept;
+	explicit Termin(const string& _name, const PageNumber page_number)noexcept;
+	inline const string& GetName()const noexcept { return name_; }
+	TerminsList& GetUnderTerminsList()const;
+	inline PageNumber GetNumberOfPages()const noexcept { return page_list_ptr_->size(); }
+	PageNumber GetPage(const unsigned int page_index)const;
+	void AddUnderTermin(const Termin& under_termin);
+	void AddUnderTermin(const string& under_termin_name, const PageNumber page_number);
+	void DeleteUnderTermin(const string& under_termin_name);
+	void Edit(const string& new_name);
+	void Edit(const string& new_name, const PageNumber new_page);
+	void Edit(const PageNumber new_page);
+	const string GetPrintString() const;
 
-		ListElement list_element;
+};
 
-		list_element.name = termin_name;
-		list_element.under_term_list_ptr = (TerminsList*) new TerminsList();
-		list_element.page_list_ptr = (lst::forward_list<PageNumber>*) new lst::forward_list<PageNumber>();
-		list_element.page_list_ptr->push_back(page_number);
+static const string LIST_IS_EMPTY = "Termins list is empty.";
+static const string TERMIN_NOT_FOUND = "Termin not found.";
 
-		push_back(list_element);
+class TerminsList:protected forward_list<Termin> {
+private:
+public:
 
-	}
-
-	void Delete(const std::string& delete_termin_name) {
-
-		if (!empty()) {
-
-			unsigned int index = 0;
-
-			std::string current_termin_name;
-			bool termin_found;
-
-			do {
-
-				const ListElement& list_element = operator[](index);
-				current_termin_name = list_element.name;
-
-				index++;
-
-				termin_found = (current_termin_name == delete_termin_name) && (index < size());
-
-			} while (!termin_found);
-
-			index--;
-			erase(index);
-
-		}
-
-	}
-
-	void SortTerminsNames() {
-
-		sort(CompareNames);
-
-	}
-
-
-	explicit TerminsList():lst::forward_list<ListElement>() {
-
-	}
+	//const Termin& operator[](const size_t index)const;
+	Termin& operator[](const size_t index);
+	void Add(const string& termin_name, PageNumber page_number);
+	void Delete(const string& delete_termin_name);
+	inline void SortTerminsNames() { /*sort(CompareNames);*/ }
+	inline void SortPages() { /*sort(ComparePages);*/ }
+	inline size_t GetNumberOfTermins()const noexcept { return size(); }
+	explicit TerminsList()noexcept:forward_list<Termin>() {}
 
 };
 
