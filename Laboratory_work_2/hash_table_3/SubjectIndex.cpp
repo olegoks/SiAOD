@@ -1,4 +1,5 @@
 #include"SubjectIndex.h"
+#include<fstream>
 #include<algorithm>
 
 void SubjectIndex::AddTermin(const string& name, const PageNumber page_number)
@@ -74,6 +75,7 @@ void SubjectIndex::DeleteTermin(const string& delete_termin_name) {
 
 			if ((*it)->GetName()== delete_termin_name) {
 				termins_info_.erase(it);
+				break;
 			}
 
 		}
@@ -104,6 +106,26 @@ void SubjectIndex::DeleteUnderTermin(const string& delete_termin_name, const str
 
 }
 
+const Termin& SubjectIndex::SearchTerminByUnderTermin(const string& under_termin_name)const {
+
+	for (auto it = termins_info_.begin(); it < termins_info_.end(); it++)
+	{
+		const Termin* const current_termin = (*it);
+		TerminsList& under_termins = current_termin->GetUnderTerminsList();
+		
+		for (size_t index = 0; index < under_termins.GetNumberOfTermins(); index++)
+		{
+			const Termin& under_termin = under_termins[index];
+			
+			if (under_termin.GetName() == under_termin_name) {
+				///...........
+			}
+		}
+
+	}
+
+}
+
 Termin SubjectIndex::SearchTermin(const string& search_termin_name) const
 {
 	try {
@@ -111,12 +133,103 @@ Termin SubjectIndex::SearchTermin(const string& search_termin_name) const
 		return termins_[TerminName(search_termin_name)];
 
 	}
-	catch (TerminException exception) {
+	catch (mp::MapException exception) {
 
-		throw SubjectIndexException(exception.What());
+		throw SubjectIndexException(exception.GetError());
 
 	}
 	 
+}
+
+Termin ProcessLine(const string& termin_line) {
+
+	using std::string;
+	
+	const char kSpace = ' ';
+	const char kComma = ',';
+
+	int pos = termin_line.find(kComma);
+	string termin_name = termin_line.substr(0, pos);
+	size_t index = 0;
+	while (termin_name[0] == '\t')termin_name.erase(0, 1);
+	pos = termin_line.find(kComma) + 1;
+	int page_number = 0;
+
+	if (pos != 0) 
+		page_number = stoi(termin_line.substr(pos));
+
+	return Termin(termin_name, page_number);
+
+}
+
+size_t NestingLevel(const string& line) {
+
+	if (!line.empty()) {
+
+		int index = 0;
+		while (line[index] == '\t') index++;
+
+		return index;
+
+	}
+
+	return 0;
+
+}
+
+void SubjectIndex::ReadFile(const string& file_name)
+{
+
+	using namespace std;
+
+	const size_t kMaxLineLength = 100;
+	
+	ifstream file;
+
+	file.open(file_name, ios::in);
+
+	char line[kMaxLineLength];
+	string termin_s, u_termin_s, uu_termin_s;
+
+	while (file.getline(line, kMaxLineLength)) {
+
+		const size_t line_nesting_level = NestingLevel(string(line));
+
+		Termin termin;
+
+		switch (line_nesting_level){
+		case 0: {
+			
+			
+			termin = ProcessLine(line);
+			termin_s = termin.GetName();
+			SubjectIndex::AddTermin(termin_s, termin.GetPage(0));
+
+			break;
+		}
+		case 1: {
+
+			termin = ProcessLine(line);
+			u_termin_s = termin.GetName();
+			SubjectIndex::AddUnderTermin(termin_s, u_termin_s, termin.GetPage(0));
+
+			break;
+		}
+		case 2: {
+
+			termin = ProcessLine(line);
+			uu_termin_s = termin.GetName();
+			SubjectIndex::AddUnderUnderTermin(termin_s, u_termin_s, uu_termin_s, termin.GetPage(0));
+
+			break;
+		}
+
+		}
+
+	}
+
+	file.close();
+
 }
 
 void SubjectIndex::Print() const
@@ -140,7 +253,7 @@ void SubjectIndex::Print() const
 
 			try {
 
-			TerminsList under_under_termins = under_termin.GetUnderTerminsList();
+			TerminsList& under_under_termins = under_termin.GetUnderTerminsList();
 
 			for (size_t index_uut = 0; index_uut < under_termin.GetNumberOfPages(); index_uut++){
 
@@ -205,5 +318,5 @@ void SubjectIndex::EditTermin(const string& termin_name, const string& new_name,
 
 
 
-SubjectIndex::SubjectIndex()noexcept : termins_(100) {};
+SubjectIndex::SubjectIndex()noexcept : termins_(5) {};
 

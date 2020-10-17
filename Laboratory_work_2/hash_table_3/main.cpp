@@ -1,95 +1,329 @@
-#include "SubjectIndex.h"
-#include <fstream>
+﻿#include "SubjectIndex.h"
+#include <memory>
 
-std::string RetTermName(char line[]) {
+class Menu {
 
-	using namespace std;
-	string line_s(line);
-	int pos = line_s.find(",");
-	line_s = line_s.substr(0, pos);
-	size_t index = 0;
+	enum Command {
 
-	while ((index = line_s.find("  ")) != std::string::npos)line_s.erase(index, 1);
+		FIND_TERMIN = 0,
+		ADD_TERMIN,
+		ADD_UNDERTERMIN,
+		ADD_PAGE,
+		DELETE_TERMIN,
+		DELETE_UNDERTERMIN,
+		DELETE_PAGE,
+		EDIT_TERM,
+		SORT_TERMS,
+		SORT_PAGES,
+		SHOW_SUBJECT_INDEX,
+		FIND_UNDERTERMIN,
+		FIND_A_TERM_BY_UNDERTERM,
+		SAFE_AND_EXIT,
+		EXIT_WITHOUT_SAVING,
+		NOTHING
 
-	return line_s;
+	};
 
-}
+private:
 
-unsigned int RetPageNumber(char line[]) {
+	const string menu_string = "_____________________\n"
+		"0. Find term\n"
+		"1. Add termin\n"
+		"2. Add underterm\n"
+		"3. Add page\n"
+		"4. Delete term\n"
+		"5. Delete underterm\n"
+		"6. Delete page\n"
+		"7. Edit term\n"
+		"8. Sort terms\n"
+		"9. Sort pages\n"
+		"10. Show subject index+\n"
+		"11. Find underterm\n"
+		"12. Find a term by underterm\n"
+		"13. Safe and exit\n"
+		"14. Exit without saving\n"
+		"_____________________\n";
 
-	using namespace std;
-	string line_s(line);
-	int pos = line_s.find(",") + 1;
-	int number = 0;
+	SubjectIndex subject_index_;
 
-	if (pos != 0) {
+	static Menu instance_;
 
-		line_s = line_s.substr(pos);
-		number = std::stoi(line_s);
+	explicit Menu()noexcept {
+		subject_index_.ReadFile("terms.txt");
+	}
+
+protected:
+public:
+	inline void PrintMenu()const { std::cout << menu_string; }
+	Command ReadCommand()const {
+
+		using std::cin;
+		
+		bool correct_input = false;
+		unsigned int  input_command;
+
+		while (!correct_input) {
+			
+			cin.clear();
+			
+			cin >> input_command;
+
+			if (cin.good())correct_input = true;
+
+		}
+	
+		return (Command)input_command;
 
 	}
 
-	return number;
+	void PrintTerminInfo(const Termin& termin)const {
 
-}
-bool ReadLaforeSubjectIndex(SubjectIndex* subject_index) {
+		using namespace std;
 
-	using namespace std;
-	ifstream file;
+		try {
 
-	file.open("terms.txt", ios::in);
+			cout << termin.GetPrintString() << endl;
 
-	if (!file.is_open()) return false;
-
-	char line[100];
-
-	string termin, under_termin, under_under_termin;
-
-	while (file.getline(line, 100)) {
-
-		int index = 0;
-		while (line[index] == '\t') index++;
-
-		int page;
-
-		switch (index) {
-		case 0: {
-
-			termin = RetTermName(line);
-			page = RetPageNumber(line);
-			subject_index->AddTermin(termin, page);
-
-			break;
 		}
+		catch (TerminException exception) {
 
-		case 1: {
+			cout << exception.What();
 
-			under_termin = RetTermName(line);
-			page = RetPageNumber(line);
-			subject_index->AddUnderTermin(termin, under_termin, page);
-
-			break;
 		}
-
-		case 2: {
-
-			under_under_termin = RetTermName(line);
-			page = RetPageNumber(line);
-			subject_index->AddUnderUnderTermin(termin, under_termin, under_under_termin, page);
-
-			break;
-		}
-
-		};
 
 	}
 
+	const string ScanTerminName() {
+		using std::cin;
+		string name;
+		cin.clear(); 
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		cin >> name;
+		return name;
+	}
+	PageNumber ScanTerminPage() {
+		using std::cin;
+		char page[50];
+		cin.ignore();
+		cin.getline(page, 50);
+		return std::stoi(page);
+	}
+	Termin ScanTerminInfo() {
+
+		using std::cout;
+
+		string name;
+		PageNumber page;
+		cout << "Print name";
+		name = ScanTerminName();
+		cout << "Print page: ";
+		page = ScanTerminPage();
+
+		return Termin(name, page);
+	}
+
+	void ProcessCommand(Command command) {
+
+		switch (command) {
+		case FIND_TERMIN: {
+
+			using namespace std;
+		
+			string input_t_name;
+			cout << "Print name: ";
+			input_t_name = ScanTerminName();
+			//cin.clear();
+			
+			try {
+
+				const Termin& termin = subject_index_.SearchTermin(input_t_name);
+				PrintTerminInfo(termin);
+
+				TerminsList& under_termins = termin.GetUnderTerminsList();
+
+				for (size_t i = 0; i < under_termins.GetNumberOfTermins(); i++)
+				{
+					const Termin& under_termin = under_termins[i];
+
+					cout << '\t' << under_termin.GetName() << ", " << under_termin.GetPage(0) << endl;
+
+				}
+
+			}
+			catch (SubjectIndexException exception) {
+
+				cout << exception.What() << endl;
+			}
+			catch (TerminException exception) {
+
+				cout << exception.What() << endl;
+
+			}
+
+			system("pause");
+
+			break;
+		}
+		case FIND_A_TERM_BY_UNDERTERM: {
+			
+			using std::cout;
+			
+			string under_termin_name;
+			cout << "Print undertermin name: ";
+			under_termin_name = ScanTerminName();
+			
+
+
+			break;
+		}
+		case ADD_TERMIN: {
+
+			Termin termin = ScanTerminInfo();
+			subject_index_.AddTermin(termin.GetName(), termin.GetPage(0));
+
+			break;
+		}
+
+		case SHOW_SUBJECT_INDEX: {
+
+			subject_index_.Print();
+			system("pause");
+			break;
+		}
+
+		case SORT_TERMS: {
+
+			subject_index_.SortTerminsNames();
+			break;
+		}
+		case SORT_PAGES: {
+
+			subject_index_.SortPages();
+			break;
+		}
+		case ADD_UNDERTERMIN: {
+
+			using namespace std;
+			string termin_name;
+			cout << "Print termin name: "; cin >> termin_name;
+			Termin under_termin = ScanTerminInfo();
+			try {
+				subject_index_.AddUnderTermin(termin_name, under_termin.GetName(), under_termin.GetPage(0));
+			}
+			catch (SubjectIndexException exception) {
+				cout << exception.What() << endl;
+			}
+
+			system("pause");
+			break;
+		}
+		case EDIT_TERM: {
+
+			using namespace std;
+			string termin_name;
+			cout << "Print termin name: ";
+			termin_name = ScanTerminName();
+			cout << "New data." << endl;
+			Termin termin = ScanTerminInfo();
+			subject_index_.EditTermin(termin_name, termin.GetName(), termin.GetPage(0));
+
+			break;
+		}
+	
+		case DELETE_TERMIN: {
+
+			using std::cout;
+			using std::endl;
+			
+			cout << "Print termin name: ";
+			const string  termin_name = ScanTerminName();
+			try {
+
+				subject_index_.DeleteTermin(termin_name);
+
+			}
+			catch (SubjectIndexException exception) {
+
+				cout << exception.What() << endl;
+
+			}
+			break;
+		}
+
+		case DELETE_UNDERTERMIN: {
+
+			using std::cout;
+			using std::endl;
+
+			cout << "Print termin name: ";
+			const string  termin_name = ScanTerminName();
+			cout << "Print undertermin name: ";
+			const string under_termin_name = ScanTerminName();
+
+			try {
+
+				Termin termin = subject_index_.SearchTermin(termin_name);
+				termin.DeleteUnderTermin(under_termin_name);
+
+			}
+			catch (SubjectIndexException exception) {
+
+				cout << exception.What() << endl;
+
+			}
+			catch (TerminException exception) {
+				cout << exception.What() << endl;
+			}
+			
+			system("pause");
+
+			break;
+		}
+
+		}
+
+
+	}
+
+	static Menu* Exemplar()noexcept;
+
+	explicit Menu(const Menu&) = delete;
+
+	void operator=(const Menu&) = delete;
+
+	void Start() {
+
+		Command command = NOTHING;
+
+		while ((command != EXIT_WITHOUT_SAVING) && (command != SAFE_AND_EXIT)) {
+
+			system("cls");
+			PrintMenu();
+			command = ReadCommand();
+			ProcessCommand(command);
+
+		}
+
+	}
+};
+
+Menu* Menu::Exemplar()noexcept {
+
+	static Menu exemplar{};
+
+	return &exemplar;
 }
 
 int main() {
 
-	SubjectIndex subject_index;
-	ReadLaforeSubjectIndex(&subject_index);
-	subject_index.Print();
+	using std::shared_ptr;
+
+	const shared_ptr<Menu> menu_ptr(Menu::Exemplar());
+
+	menu_ptr->Start();
+	//SubjectIndex subject_index;
+	//subject_index.ReadFile("terms.txt");
+	//subject_index.Print();
+
 	return 0;
 }

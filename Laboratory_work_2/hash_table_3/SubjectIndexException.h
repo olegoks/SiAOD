@@ -26,6 +26,10 @@
 
 		}
 
+		const string& What()const noexcept {
+			return error_name_;
+		}
+
 	};
 
 #endif

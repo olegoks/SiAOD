@@ -1,42 +1,41 @@
-default copy constructor, 216
+constructor, 216
 arguments, 23
 	exceptions, 642
 	functions, 24
 		arrays, 251
 		C-strings, 411
-friend keyword, 469
+friend, 469
 capacity(), 282
-front() member function, 673
-seekg() member function, 520
-fstream class, 528
-arithmetic operators, 52
-	addition (+) operator, 52 
-	division (/) operator, 52 
-	multiplication (×) operator, 23
-	52 overloading, 299
+front(), 673
+seekg(), 520
+fstream, 528
+arithmetic, 52
+	addition, 52 
+	division, 52 
+	multiplication, 23
+	overloading, 299
 	precedence, 107
-	remainder (%) operator, 52
-	subtraction (-) operator, 52
-filename extension .cpp, 23
-function libraries, 574
+	remainder, 52
+	subtraction, 52
+filename.cpp, 23
+function, 574
 flush(), 521
-executable files, 23 
-function objects, 665
-	modifying container behavior, 714
-	predefined function objects, 707 
+executable, 23 
+function, 665
+	modifying, 714
+	predefined, 707 
 	writing, 710
-OOP (Object-Oriented Programming), 7 
+oop, 7 
 functions
 	arguments, 24
 	arrays, 251
 	C-strings, 411
 	constants, 153
-	default arguments, 178
+	defaultArguments, 178
 accessing
-	array elements, 244
+	arrayElements, 244
 structures, 254
-	with pointers, 399
-	base class members, 341
-		characters in string objects, 281 
-		data with iterators, 683 
-		elements of arrays 34
+	withPointers, 399
+	baseClassMembers, 341
+		dataWithIterators, 683 
+		elementsOfArrays 34

@@ -1,4 +1,4 @@
-﻿  SubjectIndex.cpp
+﻿  main.cpp
 D:\C++\SiAOD\Laboratory_work_2\hash_table_3\SubjectIndex.h(24,2): warning C4091:  static : пропускается слева от "TerminName", когда ни одна переменная не объявлена
 D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(125,24): warning C4018:  <: несоответствие типов со знаком и без знака
 D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(120): message :  во время компиляции функции-члена класс шаблон "void forward_list<PageNumber>::insert(const int,const DataType &)"
