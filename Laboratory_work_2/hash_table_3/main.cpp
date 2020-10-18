@@ -167,13 +167,22 @@ public:
 		case FIND_A_TERM_BY_UNDERTERM: {
 			
 			using std::cout;
+			using std::endl;
 			
 			string under_termin_name;
 			cout << "Print undertermin name: ";
+
 			under_termin_name = ScanTerminName();
 			
+			try {
+				const Termin& termin = subject_index_.SearchTerminByUnderTermin(under_termin_name);
+				cout << termin.GetPrintString() << endl;
+			}
+			catch (SubjectIndexException exception) {
+				cout << exception.What() << endl;
+			}
 
-
+			system("pause");
 			break;
 		}
 		case ADD_TERMIN: {
@@ -225,8 +234,12 @@ public:
 			termin_name = ScanTerminName();
 			cout << "New data." << endl;
 			Termin termin = ScanTerminInfo();
-			subject_index_.EditTermin(termin_name, termin.GetName(), termin.GetPage(0));
-
+			try {
+				subject_index_.EditTermin(termin_name, termin.GetName(), termin.GetPage(0));
+			}
+			catch (SubjectIndexException exception) {
+				cout << exception.What() << endl;
+			}
 			break;
 		}
 	
@@ -282,7 +295,6 @@ public:
 
 		}
 
-
 	}
 
 	static Menu* Exemplar()noexcept;
@@ -321,9 +333,6 @@ int main() {
 	const shared_ptr<Menu> menu_ptr(Menu::Exemplar());
 
 	menu_ptr->Start();
-	//SubjectIndex subject_index;
-	//subject_index.ReadFile("terms.txt");
-	//subject_index.Print();
 
 	return 0;
 }

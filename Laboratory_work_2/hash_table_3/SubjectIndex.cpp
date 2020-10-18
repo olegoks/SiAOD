@@ -107,22 +107,33 @@ void SubjectIndex::DeleteUnderTermin(const string& delete_termin_name, const str
 }
 
 const Termin& SubjectIndex::SearchTerminByUnderTermin(const string& under_termin_name)const {
+	
+	bool termin_found = false;
 
 	for (auto it = termins_info_.begin(); it < termins_info_.end(); it++)
 	{
+
 		const Termin* const current_termin = (*it);
-		TerminsList& under_termins = current_termin->GetUnderTerminsList();
-		
-		for (size_t index = 0; index < under_termins.GetNumberOfTermins(); index++)
-		{
-			const Termin& under_termin = under_termins[index];
-			
-			if (under_termin.GetName() == under_termin_name) {
-				///...........
+		try {
+			TerminsList& under_termins = current_termin->GetUnderTerminsList();
+
+			for (size_t index = 0; index < under_termins.GetNumberOfTermins(); index++)
+			{
+				const Termin& under_termin = under_termins[index];
+
+				if (under_termin.GetName() == under_termin_name) {
+
+					return *current_termin;
+
+				}
 			}
 		}
-
+		catch (TerminException exception) {	}
+		
 	}
+
+	throw SubjectIndexException("Termin not found.");
+
 
 }
 
