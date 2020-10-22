@@ -1,12 +1,11 @@
-﻿  main.cpp
-D:\C++\SiAOD\Laboratory_work_2\hash_table_3\SubjectIndex.h(24,2): warning C4091:  static : пропускается слева от "TerminName", когда ни одна переменная не объявлена
-D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(125,24): warning C4018:  <: несоответствие типов со знаком и без знака
-D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(120): message :  во время компиляции функции-члена класс шаблон "void forward_list<PageNumber>::insert(const int,const DataType &)"
-D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(120): message :         with
-D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(120): message :         [
-D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(120): message :             DataType=PageNumber
-D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(120): message :         ]
-D:\C++\SiAOD\Laboratory_work_2\hash_table_3\TerminsList.h(31): message :  выполняется компиляция ссылки на экземпляр класс шаблон функции "forward_list<PageNumber>"
-D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(147,26): warning C4018:  <: несоответствие типов со знаком и без знака
-D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(137): message :  во время компиляции функции-члена класс шаблон "void forward_list<PageNumber>::erase(const int)"
+﻿  TerminsList.cpp
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(125,24): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(120): message : во время компиляции функции-члена класс шаблон "void forward_list<PageNumber>::insert(const int,const DataType &)"
+          with
+          [
+              DataType=PageNumber
+          ]
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\TerminsList.h(31): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "forward_list<PageNumber>"
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(147,26): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\forward_list.h(137): message : во время компиляции функции-члена класс шаблон "void forward_list<PageNumber>::erase(const int)"
   hash_table_3.vcxproj -> D:\C++\SiAOD\Laboratory_work_2\hash_table_3\Debug\hash_table_3.exe

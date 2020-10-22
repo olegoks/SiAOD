@@ -37,6 +37,10 @@ public:
 	void Edit(const string& new_name, const PageNumber new_page);
 	void Edit(const PageNumber new_page);
 	const string GetPrintString() const;
+	Termin& operator=(Termin&& x)noexcept;
+	Termin(Termin&& time_object)noexcept;
+	Termin(const Termin& time_object)noexcept;
+	Termin& operator=(const Termin& termin)noexcept;
 
 };
 

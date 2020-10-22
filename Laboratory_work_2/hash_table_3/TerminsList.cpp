@@ -1,4 +1,5 @@
 #include "TerminsList.h"
+#include <iostream>
 
 bool CompareNames(const Termin& first_element, const Termin& second_element) {
 
@@ -90,7 +91,45 @@ Termin::Termin()noexcept :Termin(DEFAULR_TERM_NAME, DEFAULT_PAGE_NUMBER) {
 
 }
 
+// Оператор присваивания перемещением, который передает право собственности на x.m_ptr в m_ptr
+Termin& Termin::operator=(Termin&& x)noexcept
+{
+	std::swap(this->name_, x.name_);
+	std::swap(this->page_list_ptr_, x.page_list_ptr_);
+	std::swap(this->under_term_list_ptr_, x.under_term_list_ptr_);
+
+	return *this;
+}
+Termin::Termin(Termin&& time_object) noexcept
+{
+	name_= time_object.name_;
+	//std::swap(time_object.name_, name_);
+	std::swap(time_object.page_list_ptr_, page_list_ptr_);
+	std::swap(time_object.under_term_list_ptr_, under_term_list_ptr_);
+
+}
+
+Termin::Termin(const Termin& time_object) noexcept
+{
+
+	this->name_ = time_object.name_;
+	this->page_list_ptr_ = time_object.page_list_ptr_;
+	this->under_term_list_ptr_ = time_object.under_term_list_ptr_;
+
+}
+
+Termin& Termin::operator=( const Termin& termin) noexcept
+{
+
+	this->name_ = termin.name_;
+	this->page_list_ptr_ = termin.page_list_ptr_;
+	this->under_term_list_ptr_ = termin.under_term_list_ptr_;
+
+	return *this;
+}
+
 Termin::Termin(const string& _name, const PageNumber page_number)noexcept :
+
 	name_(_name),
 	under_term_list_ptr_(nullptr),
 	page_list_ptr_((PagesList*) new PagesList){

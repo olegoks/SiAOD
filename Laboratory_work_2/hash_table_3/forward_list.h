@@ -214,6 +214,4 @@ class forward_list:public base_list, abstract_list<DataType>{
 
 	}
 
-
-
 #endif

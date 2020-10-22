@@ -1,0 +1,2 @@
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\Debug\hash_table_3.exe
+D:\C++\SiAOD\Laboratory_work_2\hash_table_3\Debug\hash_table_3.pdb

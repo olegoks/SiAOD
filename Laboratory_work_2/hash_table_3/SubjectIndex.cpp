@@ -27,7 +27,6 @@ void SubjectIndex::AddUnderTermin(const string& termin_name, const string& under
 
 	}
 	
-
 }
 
 void SubjectIndex::AddUnderUnderTermin(const string& termin_name, const string& under_termin_name, const string& under_under_termin_name, const PageNumber page_number) {
@@ -249,8 +248,8 @@ void SubjectIndex::Print() const
 	using std::endl;
 
 	for (auto it = termins_info_.begin(); it != termins_info_.end(); it++){
-
-		const Termin& current_termin = termins_[TerminName((*it)->GetName())];
+		std::string termin_name = (*it)->GetName();
+		const Termin& current_termin = termins_[TerminName(termin_name)];
 		cout << current_termin.GetPrintString() << endl;
 
 		try {
@@ -313,9 +312,23 @@ void SubjectIndex::EditTermin(const string& termin_name, const string& new_name,
 {
 	
 	try {
+		
+		Termin termin = std::move(termins_[TerminName(termin_name)]);
+		
+		for (auto it = termins_info_.begin(); it != termins_info_.end(); it++)
+		{
 
-		termins_[TerminName(termin_name)].Edit(new_name, new_page);
-	
+			if ((*it)->GetName() == termin_name) {
+				termins_.Delete(TerminName(termin.GetName()));
+				termin.Edit(new_name, new_page);
+				termins_.Add(TerminName(termin.GetName()), termin);
+				(*it) = &termins_[TerminName(termin.GetName())];
+
+				break;
+			}
+			
+		}
+
 	}
 	catch (mp::MapException exception) {
 
@@ -326,8 +339,6 @@ void SubjectIndex::EditTermin(const string& termin_name, const string& new_name,
 	}
 	
 }
-
-
 
 SubjectIndex::SubjectIndex()noexcept : termins_(5) {};
 
