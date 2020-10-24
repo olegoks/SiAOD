@@ -18,12 +18,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="PriorityQueueException.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="priority_queue.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="forward_list.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="PriorityQueueException.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

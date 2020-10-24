@@ -50,7 +50,6 @@ namespace lst {
 		DataType pop_front()override;
 		void sort(CompareFunction compare_function);
 
-
 		explicit forward_list() :base_list(), head_( (Element*) new Element() ) {};
 		forward_list(const std::initializer_list<DataType>& init_list)noexcept:forward_list() {
 			
@@ -124,7 +123,8 @@ namespace lst {
 		if (!indexIsCorrect(index)) throw ListException("Exception in the method insert.");
 
 		Element* first_ptr = head_->next;
-		for (size_t i = 0; i < (index - 1); i++) first_ptr = first_ptr->next;
+		for (int i = 0; i < (index - 1); i++)
+			first_ptr = first_ptr->next;
 		Element* second_ptr = first_ptr;
 		first_ptr = first_ptr->next;
 		Element* new_element = (Element*) new Element();
