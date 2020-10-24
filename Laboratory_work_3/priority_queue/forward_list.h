@@ -5,6 +5,7 @@
 #include "base_list.h"
 #include "abstract_list.h"
 #include <initializer_list>
+#include <iostream>
 
 namespace lst {
 
@@ -36,7 +37,7 @@ namespace lst {
 
 	private:
 
-		Element* const head_;
+		Element* head_;
 
 	public:
 
@@ -44,8 +45,12 @@ namespace lst {
 		void insert(const int index, const DataType& new_data)override;
 		void erase(const int index)override;
 		void push_back(const DataType& new_data)override;
+		void push_front(const DataType& new_data)noexcept;
 		DataType& operator[](const int index)override;
+		forward_list<DataType>& operator=(const forward_list<DataType>& list)noexcept;
+		forward_list<DataType>& operator=(forward_list<DataType>&& list)noexcept;
 		const DataType& operator[](const int index)const override;
+		void clear()noexcept;
 		DataType pop_back()override;
 		DataType pop_front()override;
 		void sort(CompareFunction compare_function);
@@ -55,6 +60,14 @@ namespace lst {
 			
 			for (const auto& obj : init_list) push_back(obj);
 			
+		}
+		forward_list(const forward_list<DataType>& list)noexcept:forward_list() {
+
+			for (size_t index = 0; index < list.size(); index++)
+			{
+				push_back(list[index]);
+			}
+
 		}
 		~forward_list();
 
@@ -134,6 +147,19 @@ namespace lst {
 		++number_of_elements;
 
 	}
+	template<class DataType>
+	void forward_list<DataType>::push_front(const DataType& new_data)noexcept {
+
+		if (empty())push_back(new_data);
+		else {
+
+			Element* new_element = (Element*)new Element();
+			new_element->next = head_->next;
+			head_->next = new_element;
+			
+		}
+
+	}
 
 	template<class DataType>
 	void forward_list <DataType>::erase(const int index){
@@ -175,18 +201,9 @@ namespace lst {
 	forward_list<DataType>::~forward_list()
 	{
 
-		Element* ptr_next, * ptr_this = head_;
+		clear();
 
-		for (size_t i = 0; i < number_of_elements; i++)
-		{
-
-			ptr_next = ptr_this->next;
-			delete ptr_this;
-			ptr_this = ptr_next;
-
-		}
-
-		delete ptr_this;
+		delete head_;
 
 	}
 
@@ -215,8 +232,57 @@ namespace lst {
 		return ptr->data;
 
 	}
+	template<class DataType>
+	forward_list<DataType>& forward_list<DataType>::operator= (const forward_list<DataType>& list)noexcept {
 
+		clear();
 
+		number_of_elements = 0;
+
+		for (size_t index = 0; index < list.size(); index++){
+
+			push_back(list[index]);
+
+		}
+
+		return *this;
+	}
+
+	template<class DataType>
+	forward_list<DataType>& forward_list<DataType>::operator=(forward_list<DataType>&& list)noexcept {
+
+		clear();
+		std::swap(number_of_elements, list.number_of_elements);
+		std::swap(head_, list.head_);
+
+		return *this;
+	}
+
+	template<class DataType>
+	void forward_list<DataType>::clear()noexcept {
+
+		if (!empty()) {
+
+			Element* ptr_next, * ptr_this = head_->next;
+
+			int size = number_of_elements;
+
+			for (int i = 0; i < size - 1; i++)
+			{
+
+				ptr_next = ptr_this->next;
+				delete ptr_this;
+				ptr_this = ptr_next;
+
+			}
+
+			delete ptr_this;
+
+			number_of_elements = 0;
+
+		}
+
+	}
 }
 
 #endif
