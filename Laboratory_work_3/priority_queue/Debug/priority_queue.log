@@ -1,2 +1,12 @@
 ﻿  main.cpp
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\base_list.h(16,34): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(127,24): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(122): message : во время компиляции функции-члена класс шаблон "void lst::forward_list<size_t>::insert(const int,const DataType &)"
+          with
+          [
+              DataType=size_t
+          ]
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\main.cpp(27): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "lst::forward_list<size_t>"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(149,26): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(139): message : во время компиляции функции-члена класс шаблон "void lst::forward_list<size_t>::erase(const int)"
   priority_queue.vcxproj -> D:\C++\SiAOD\Laboratory_work_3\priority_queue\Debug\priority_queue.exe

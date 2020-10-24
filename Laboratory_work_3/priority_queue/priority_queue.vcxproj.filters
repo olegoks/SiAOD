@@ -23,5 +23,8 @@
     <ClInclude Include="priority_queue.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="forward_list.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 
 #include "base_list.h"
 #include "abstract_list.h"
+#include <initializer_list>
 
 namespace lst {
 
@@ -50,10 +51,12 @@ namespace lst {
 		void sort(CompareFunction compare_function);
 
 
-		explicit forward_list() :base_list(), head_( (Element*) new Element() ) {
-
-		};
-
+		explicit forward_list() :base_list(), head_( (Element*) new Element() ) {};
+		forward_list(const std::initializer_list<DataType>& init_list)noexcept:forward_list() {
+			
+			for (const auto& obj : init_list) push_back(obj);
+			
+		}
 		~forward_list();
 
 	};
