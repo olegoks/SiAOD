@@ -123,13 +123,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cpu.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PriorityQueueException.cpp" />
+    <ClCompile Include="Thread.cpp" />
+    <ClCompile Include="ThreadsQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cpu.h" />
     <ClInclude Include="forward_list.h" />
     <ClInclude Include="PriorityQueueException.h" />
     <ClInclude Include="priority_queue.h" />
+    <ClInclude Include="Thread.h" />
+    <ClInclude Include="ThreadsQueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

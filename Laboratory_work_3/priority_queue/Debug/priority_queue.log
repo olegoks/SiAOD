@@ -1,13 +1,23 @@
-﻿  main.cpp
+﻿  Cpu.cpp
 D:\C++\SiAOD\Laboratory_work_3\priority_queue\base_list.h(16,34): warning C4018: <: несоответствие типов со знаком и без знака
 D:\C++\SiAOD\Laboratory_work_3\priority_queue\priority_queue.h(66,1): warning C4290: спецификация исключений C++ игнорируется, кроме случая, когда указывается, что функция не является __declspec(nothrow)
 D:\C++\SiAOD\Laboratory_work_3\priority_queue\priority_queue.h(111): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "tl::priority_queue<ElementType>"
 D:\C++\SiAOD\Laboratory_work_3\priority_queue\priority_queue.h(89,1): warning C4290: спецификация исключений C++ игнорируется, кроме случая, когда указывается, что функция не является __declspec(nothrow)
-D:\C++\SiAOD\Laboratory_work_3\priority_queue\main.cpp(11,2): warning C4091: static : пропускается слева от "Task", когда ни одна переменная не объявлена
-D:\C++\SiAOD\Laboratory_work_3\priority_queue\main.cpp(42,2): warning C4091: static : пропускается слева от "Threads", когда ни одна переменная не объявлена
-D:\C++\SiAOD\Laboratory_work_3\priority_queue\main.cpp(121,2): warning C4091: static : пропускается слева от "Cpu", когда ни одна переменная не объявлена
-D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(175,26): warning C4018: <: несоответствие типов со знаком и без знака
-D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(165): message : во время компиляции функции-члена класс шаблон "void lst::forward_list<Task>::erase(const int)"
-D:\C++\SiAOD\Laboratory_work_3\priority_queue\priority_queue.h(21): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "lst::forward_list<Task>"
-D:\C++\SiAOD\Laboratory_work_3\priority_queue\main.cpp(31): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "tl::priority_queue<Thread>::QueueElement"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(176,26): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(166): message : во время компиляции функции-члена класс шаблон "void lst::forward_list<Task>::erase(const int)"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\Thread.h(18): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "lst::forward_list<Task>"
+  main.cpp
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\base_list.h(16,34): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\priority_queue.h(66,1): warning C4290: спецификация исключений C++ игнорируется, кроме случая, когда указывается, что функция не является __declspec(nothrow)
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\priority_queue.h(111): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "tl::priority_queue<ElementType>"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\priority_queue.h(89,1): warning C4290: спецификация исключений C++ игнорируется, кроме случая, когда указывается, что функция не является __declspec(nothrow)
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(176,26): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(166): message : во время компиляции функции-члена класс шаблон "void lst::forward_list<Task>::erase(const int)"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\Thread.h(18): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "lst::forward_list<Task>"
+  Thread.cpp
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\base_list.h(16,34): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(176,26): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\forward_list.h(166): message : во время компиляции функции-члена класс шаблон "void lst::forward_list<Task>::erase(const int)"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue\Thread.h(18): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "lst::forward_list<Task>"
+  Создание кода...
   priority_queue.vcxproj -> D:\C++\SiAOD\Laboratory_work_3\priority_queue\Debug\priority_queue.exe

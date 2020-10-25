@@ -156,6 +156,7 @@ namespace lst {
 			Element* new_element = (Element*)new Element();
 			new_element->next = head_->next;
 			head_->next = new_element;
+			new_element->data = new_data;
 			
 		}
 

@@ -8,10 +8,8 @@ namespace tl {
 
 	using Priority = unsigned int;
 
-
-
 	template<class ElementType>
-	class priority_queue final {
+	class priority_queue {
 	public:
 
 		class QueueElement final {
@@ -22,6 +20,7 @@ namespace tl {
 
 			explicit QueueElement(const Priority priority, const ElementType& data)noexcept :priority_(priority), data_(data) {};
 			explicit QueueElement()noexcept : data_() {};
+			
 			QueueElement& operator= (const QueueElement& element)noexcept {
 
 				priority_ = element.priority_;
@@ -41,6 +40,7 @@ namespace tl {
 
 		explicit priority_queue()noexcept :list_() {}
 		inline size_t size()const noexcept { return list_.size(); };
+		inline bool  empty()const noexcept { return (size() == 0); }
 		void insert(const ElementType& new_element, const Priority priority)noexcept {
 
 			int index = -1;
