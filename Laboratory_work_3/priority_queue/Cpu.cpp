@@ -71,6 +71,24 @@ void Cpu::ProcessThread(Thread& thread)noexcept {
 
 }
 
+void Cpu::operator << (ThreadsQueue& threads) {
+
+	const uint number_of_threads = threads.size();
+
+	for (uint index = 0; index < number_of_threads; index++) {
+
+		Thread& current_thread = threads[index];
+		ProcessThread(current_thread);
+		if (cpu_is_counting_) {
+			current_thread.
+		}
+	}
+
+	cpu_is_counting_ = false;
+	number_of_intervals_++;
+
+}
+
 Cpu::Cpu(const uint interval_time)noexcept:
 	interval_time_(interval_time),
 	number_of_intervals_(0),

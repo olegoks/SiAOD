@@ -18,9 +18,11 @@ arithmetic, 52
 	remainder, 52
 	subtraction, 52
 filename.cpp, 23
-function, 574
 flush(), 521
 executable, 23 
+	modifying, 714
+	predefined, 707 
+	writing, 710
 function, 665
 	modifying, 714
 	predefined, 707 
