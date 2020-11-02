@@ -21,6 +21,7 @@ private:
 public:
 
 	inline uint GetCommonNumberOfTakts()const noexcept { return interval_time_ * number_of_intervals_; }
+	void ProcessThreadInput(Thread& thread)const noexcept;
 	inline uint GetMessedTakts()const noexcept { return number_of_missed_takts_; };
 	explicit Cpu(const uint interval_time)noexcept;
 	void operator << (ThreadsQueue& threads);

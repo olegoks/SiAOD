@@ -27,6 +27,7 @@ namespace tl {
 				data_ = element.data_;
 				return *this;
 			}
+
 		};
 
 	private:
@@ -106,6 +107,19 @@ namespace tl {
 
 			}
 
+		}
+
+		size_t priorityNumber(const Priority priority)const noexcept {
+
+			size_t counter = 0;
+
+			for (size_t index = 0; index < list_.size(); index++){
+
+				if (list_[index].priority_ == priority)counter++;
+
+			}
+
+			return counter;
 		}
 
 	};

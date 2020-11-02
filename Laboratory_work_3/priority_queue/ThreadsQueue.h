@@ -17,8 +17,9 @@ public:
 
 	//inline size_t size()const noexcept { return tl::priority_queue<Thread>::size(); }
 
-	inline Thread& operator[](const uint index)noexcept { return tl::priority_queue<Thread>::operator[](index).data_; }
-
+	inline QueueElement& operator[](const uint index)noexcept { return tl::priority_queue<Thread>::operator[](index); }
+	inline size_t priorityNumber(const tl::Priority priority)const noexcept { return tl::priority_queue<Thread>::priorityNumber(priority); }
+	
 	/*void insert(const Thread& thread, const tl::Priority priority)noexcept {
 
 		tl::priority_queue<Thread>::insert(thread, priority);

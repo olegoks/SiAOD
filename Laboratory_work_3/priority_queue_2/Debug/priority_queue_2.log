@@ -1,0 +1,19 @@
+﻿  main.cpp
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\base_list.h(16,34): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\QueueList.h(53,1): warning C4290: спецификация исключений C++ игнорируется, кроме случая, когда указывается, что функция не является __declspec(nothrow)
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\QueueList.h(73): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "QueueList<DataType>"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(35,1): warning C4290: спецификация исключений C++ игнорируется, кроме случая, когда указывается, что функция не является __declspec(nothrow)
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(42): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "priority_queue<DataType>"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(36,1): warning C4290: спецификация исключений C++ игнорируется, кроме случая, когда указывается, что функция не является __declspec(nothrow)
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(103,1): warning C4290: спецификация исключений C++ игнорируется, кроме случая, когда указывается, что функция не является __declspec(nothrow)
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(121,1): warning C4290: спецификация исключений C++ игнорируется, кроме случая, когда указывается, что функция не является __declspec(nothrow)
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(171,1): warning C4290: спецификация исключений C++ игнорируется, кроме случая, когда указывается, что функция не является __declspec(nothrow)
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(171,1): warning C5043: "priority_queue<DataType>::operator ()": спецификация исключения не соответствует предыдущему объявлению
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(40): message : см. объявление "priority_queue<DataType>::operator ()"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\forward_list.h(180,26): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\forward_list.h(170): message : во время компиляции функции-члена класс шаблон "void lst::forward_list<Task>::erase(const int)"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\Thread.h(17): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "lst::forward_list<Task>"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(171,1): warning C5043: "priority_queue<Thread>::operator ()": спецификация исключения не соответствует предыдущему объявлению
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(40): message : см. объявление "priority_queue<Thread>::operator ()"
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\priority_queue.h(139): warning C4715: priority_queue<Thread>::pop: значение возвращается не при всех путях выполнения
+  priority_queue_2.vcxproj -> D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\Debug\priority_queue_2.exe

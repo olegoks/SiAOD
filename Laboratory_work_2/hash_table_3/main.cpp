@@ -30,14 +30,14 @@ private:
 		"0. Find term\n"
 		"1. Add termin\n"
 		"2. Add underterm\n"
-		"3. Add page-\n"
+		"3. Add page\n"
 		"4. Delete term\n"
 		"5. Delete underterm\n"
-		"6. Delete page-\n"
+		"6. Delete page\n"
 		"7. Edit term\n"
 		"8. Sort terms\n"
 		"9. Sort pages\n"
-		"10. Show subject index+\n"
+		"10. Show subject index\n"
 		"11. Find underterm\n"
 		"12. Find a term by underterm\n"
 		"13. Safe and exit\n"
@@ -175,11 +175,22 @@ public:
 			under_termin_name = ScanTerminName();
 			
 			try {
-				const Termin& termin = subject_index_.SearchTerminByUnderTermin(under_termin_name);
-				cout << termin.GetPrintString() << endl;
+
+				forward_list<const Termin*>* termins_list = subject_index_.SearchTerminByUnderTermin(under_termin_name);
+				
+				for (size_t index = 0; index < termins_list->size(); index++)
+				{
+					const Termin& termin = *(*termins_list)[index];
+					PrintTerminInfo(termin);
+					
+				}
+				if (termins_list->empty()) cout << "Termin not found." << endl;
+				delete termins_list;
 			}
 			catch (SubjectIndexException exception) {
+
 				cout << exception.What() << endl;
+
 			}
 
 			system("pause");

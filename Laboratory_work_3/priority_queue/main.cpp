@@ -15,7 +15,7 @@ int main() {
 
 	for (size_t index = 0; index < threads.size(); index++){
 		
-		Thread& current_thread = threads[index];
+		Thread& current_thread = threads[index].data_;
 
 		for (size_t i = 0; i < current_thread.size(); i++){
 

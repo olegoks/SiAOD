@@ -46,7 +46,7 @@ public:
 	void DeleteTermin(const string& delete_termin_name);
 	void DeleteUnderTermin(const string& delete_termin_name, const string& delete_under_termin_name);
 	Termin SearchTermin(const string& termin_name)const;
-	const Termin& SearchTerminByUnderTermin(const string& under_termin_name)const;
+	forward_list<const Termin*>* SearchTerminByUnderTermin(const string& under_termin_name)const;
 	void ReadFile(const string& file_name);
 	explicit SubjectIndex()noexcept;
 

@@ -37,7 +37,11 @@ public:
 
 	Thread(const std::initializer_list<Task>& init_list)noexcept :
 		lst::forward_list<Task>{ init_list },
-		identifier_{ last_identifier }{}
+		identifier_{ last_identifier }{
+
+		last_identifier++;
+
+	}
 
 	Thread& operator=(const Thread& list)noexcept {
 
@@ -51,9 +55,10 @@ public:
 		return *this;
 	}
 
-	Thread(const Thread& thread)noexcept :lst::forward_list<Task>(thread), identifier_(last_identifier) {
+	Thread(const Thread& thread)noexcept:
+		lst::forward_list<Task>(thread), 
+		identifier_(last_identifier) {
 		last_identifier++;
-
 	}
 
 
