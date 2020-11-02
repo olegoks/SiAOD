@@ -1,0 +1,6 @@
+﻿  Stack.cpp
+D:\C++\SiAOD\Laboratory_work_4\Stack\base_list.h(16,34): warning C4018: <: несоответствие типов со знаком и без знака
+  main.cpp
+D:\C++\SiAOD\Laboratory_work_4\Stack\base_list.h(16,34): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода...
+  Stack.vcxproj -> D:\C++\SiAOD\Laboratory_work_4\Stack\Debug\Stack.exe

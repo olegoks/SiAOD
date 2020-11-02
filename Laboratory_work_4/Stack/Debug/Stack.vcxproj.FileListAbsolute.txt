@@ -1,0 +1,2 @@
+D:\C++\SiAOD\Laboratory_work_4\Stack\Debug\Stack.exe
+D:\C++\SiAOD\Laboratory_work_4\Stack\Debug\Stack.pdb
