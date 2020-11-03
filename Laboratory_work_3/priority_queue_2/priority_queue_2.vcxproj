@@ -151,6 +151,7 @@
     <ClInclude Include="base_list.h" />
     <ClInclude Include="Cpu.h" />
     <ClInclude Include="forward_list.h" />
+    <ClInclude Include="output_constants.h" />
     <ClInclude Include="PriorityQueueException.h" />
     <ClInclude Include="priority_queue.h" />
     <ClInclude Include="QueueList.h" />

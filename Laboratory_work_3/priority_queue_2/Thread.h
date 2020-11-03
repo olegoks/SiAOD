@@ -31,12 +31,12 @@ struct Thread final: public lst::forward_list<Task> {
 
 	}
 	
-	explicit Thread(const std::initializer_list<Task>& initializer_list, const size_t priority)noexcept :
+	Thread(const std::initializer_list<Task>& initializer_list, const size_t priority)noexcept :
 		List{ initializer_list },
 		priority_{ priority },
 		id_{ identifier_ }{ identifier_++; }
 
-	explicit Thread(const std::initializer_list<size_t>& initializer_list, const size_t input_ticks, const size_t priority)noexcept :
+	Thread(const std::initializer_list<size_t>& initializer_list, const size_t input_ticks, const size_t priority)noexcept :
 		priority_{priority},
 		id_{ identifier_ }{ 
 
