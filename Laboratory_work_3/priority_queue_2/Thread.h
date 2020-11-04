@@ -8,10 +8,7 @@ struct Task final {
 
 	size_t input_ticks;
 	size_t cpu_ticks;
-	
-	/*Task(const size_t input_ticks)noexcept :input_ticks{ input_ticks }, cpu_ticks{} {}
-	Task(const size_t input_ticks, const size_t cpu_ticks)noexcept : input_ticks(input_ticks),
-		cpu_ticks(cpu_ticks) {}*/
+
 };
 
 struct Thread final: public lst::forward_list<Task> {
@@ -41,14 +38,18 @@ struct Thread final: public lst::forward_list<Task> {
 		id_{ identifier_ }{ 
 
 		identifier_++; 
-
-		for (const auto& list_obj : initializer_list)
-			List::push_back(Task{input_ticks, list_obj});
 		
+		for (const auto& list_obj : initializer_list) {
+
+			if (list_obj == *initializer_list.begin())
+				List::push_back(Task{ 0, list_obj });
+			else
+				List::push_back(Task{ input_ticks, list_obj });
+				
+		}
+
 	}
 		
-	
-
 	void operator=(Thread&& thread)noexcept {
 
 		List::operator=(std::move(thread));
