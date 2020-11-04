@@ -2,10 +2,10 @@ Laboratory_work _1/List/.vs/
 Laboratory_work _1/List/Release/
 Laboratory_work _1/List/Debug/
 Laboratory_work _1/List/x64/
-/**/**/.vs
-/**/**/Debug
-/**/**/Release
-/**/**/.vcxproj.filters
-/**/**/.vcxproj
-/**/**/.vcxproj.user
-/**/**/.sln
+*.vs
+**/**/Debug
+!/**/**/Release/*
+*.vcxproj.filters
+*.vcxproj
+*.vcxproj.user
+*.sln
