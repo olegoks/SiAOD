@@ -10,10 +10,13 @@ private:
 protected:
 public:
 
-	void push(const DataType& data)noexcept;
-	DataType&& pop();
+	void push(const DataType& data)noexcept(true);
+	DataType&& pop()noexcept(false);
+	const DataType& top()const noexcept(false);
 	inline size_t size()const noexcept(true);
+	inline bool empty()const noexcept(true);
 	explicit Stack()noexcept(true);
+
 };
 
 template<class DataType>
@@ -26,13 +29,18 @@ DataType&& Stack<DataType>::pop()noexcept(false) {
 template<class DataType>
 inline size_t Stack<DataType>::size() const noexcept(true){
 	
-	return lst::forward_list<DataType>::size();
+	return ForwardList::size();
 
 }
 
 template<class DataType>
-inline Stack<DataType>::Stack() noexcept(true):
-	ForwardList{} {
+inline bool Stack<DataType>::empty() const noexcept(true)
+{
+	return ForwardList::empty();
+}
+
+template<class DataType>
+inline Stack<DataType>::Stack() noexcept(true):ForwardList{} {
 
 }
 
@@ -41,4 +49,14 @@ void Stack<DataType>::push(const DataType& data) noexcept{
 
 	ForwardList::push_front(data);
 
+}
+
+template<class DataType>
+inline const DataType& Stack<DataType>::top()const noexcept(false) {
+
+	if (!empty())
+		return  this->operator[](0);
+	
+	throw lst::base_list::ListException("Stack is empty.");
+	
 }

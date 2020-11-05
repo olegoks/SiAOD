@@ -1,13 +1,15 @@
-#include "Stack.h"
 #include <regex>
 #include <string>
 #include <limits>
+#include <iostream>
+#include "ReversePolishExpression.h"
 
 inline static bool InputIsCorrect(const std::string& input_str) {
-	//[(\s)(\()(\))(\+)(\-)(\\)(\*)(\d)]+
-	static const std::regex regular_expression{ "([a-z0-9\-\+\(\)\*/]+)" };
+
+	static const std::regex regular_expression{ "([a-z0-9\-\+\(\)\*/\^]+)" };
 
 	return std::regex_match(input_str.cbegin(), input_str.cend(), regular_expression);
+
 }
 
 static std::string EnterString() {
@@ -31,7 +33,7 @@ static std::string EnterString() {
 
 }
 
-void PrintString(const std::string& string) {
+static void PrintString(const std::string& string) {
 
 	std::cout << string << std::endl;
 
@@ -67,10 +69,15 @@ static std::string EnterExpression() {
 	return input_expression;
 }
 
-int main() {
 
-	std::cout << EnterExpression() << std::endl;
-	std::cout << "Success input!" << std::endl;
+int main(int argc, char** argv) {
+
+	const std::string input_expression = EnterExpression();
+	const std::string rev_pol_expr = ConvertToRevPolExpr(input_expression);
+
+	PrintString(rev_pol_expr);
+
+	system("pause");
 
 	return 0;
 }
