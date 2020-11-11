@@ -34,6 +34,32 @@ Priority ReturnOperatorPriority(const char symbol) {
 
 }
 
+int CountRang(const std::string& expression) {
+
+	std::regex operands{ "([a-z])" };
+	std::regex operators{ "([\-\+\*/\^])" };
+	int rang = 0;
+
+	std::string symbol;
+
+	for (auto it = expression.cbegin(); it != expression.cend(); it++) {
+
+		//Two function calls:)
+		symbol = *it;
+		bool symbol_is_operand = std::regex_match(symbol, operands);
+		bool symbol_is_operator = std::regex_match(symbol, operators);
+
+		if (symbol_is_operand)
+			rang++;
+		else
+			if (symbol_is_operator)
+				rang--;
+
+	}
+
+	return rang;
+}
+
 std::string ConvertToRevPolExpr(const std::string& expression) {
 
 	Stack<char> operators_stack;
@@ -52,7 +78,7 @@ std::string ConvertToRevPolExpr(const std::string& expression) {
 				const Priority symbol_priority = ReturnOperatorPriority(symbol);
 				const char top_operator = operators_stack.top();
 				Priority stack_top_priority = ReturnOperatorPriority(top_operator);
-				const bool push_to_stack = (symbol_priority == 0) || (symbol_priority > stack_top_priority);
+				const bool push_to_stack = (symbol_priority == 0) || (symbol_priority >= stack_top_priority);
 
 				if (push_to_stack) operators_stack.push(symbol);
 				else
