@@ -1,0 +1,9 @@
+﻿  main.cpp
+D:\C++\SiAOD\Laboratory_work_4\Stack\base_list.h(16,34): warning C4018: <: несоответствие типов со знаком и без знака
+D:\C++\SiAOD\Laboratory_work_4\Stack\main.cpp(9,46): warning C4129: -: неизвестная escape-последовательность
+D:\C++\SiAOD\Laboratory_work_4\Stack\main.cpp(9,46): warning C4129: +: неизвестная escape-последовательность
+D:\C++\SiAOD\Laboratory_work_4\Stack\main.cpp(9,46): warning C4129: (: неизвестная escape-последовательность
+D:\C++\SiAOD\Laboratory_work_4\Stack\main.cpp(9,46): warning C4129: ): неизвестная escape-последовательность
+D:\C++\SiAOD\Laboratory_work_4\Stack\main.cpp(9,46): warning C4129: *: неизвестная escape-последовательность
+D:\C++\SiAOD\Laboratory_work_4\Stack\main.cpp(9,46): warning C4129: ^: неизвестная escape-последовательность
+  Stack.vcxproj -> D:\C++\SiAOD\Laboratory_work_4\Stack\Debug\Stack.exe

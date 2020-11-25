@@ -69,20 +69,19 @@ static std::string EnterExpression() {
 	return input_expression;
 }
 
-template<class T1, class T2>
-auto sum(const T1& first, const T1& second)->decltype(first + second) {
-	
-	return first + second;
-}
-
 
 int main(int argc, char** argv) {
 
 	const std::string input_expression = EnterExpression();
+	std::string rev_pol_expr;
 	
-	const std::string rev_pol_expr = ConvertToRevPolExpr(input_expression);
 	int rang = CountRang(input_expression);
-	PrintString(rev_pol_expr);
+
+	if (rang == 1) {
+		rev_pol_expr = ConvertToRevPolExpr(input_expression);
+		PrintString(rev_pol_expr);
+	}
+
 	PrintString(std::to_string(rang));
 
 	system("pause");

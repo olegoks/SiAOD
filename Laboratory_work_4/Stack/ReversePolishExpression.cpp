@@ -12,7 +12,7 @@ static constexpr char kPower = '^';
 
 bool SymbolIsOperator(const char symbol) {
 
-	static const std::string operators{ kOpenBracket, kCloseBracket, kPlus, kMinus, kMul, kDiv, kPower };
+	static const std::string operators{ kOpenBracket, kCloseBracket, kPlus, kMinus, kMul, kDiv, kPower, '!' };
 
 	if (operators.find(symbol) != std::string::npos) return true;
 
@@ -20,19 +20,60 @@ bool SymbolIsOperator(const char symbol) {
 
 }
 
-Priority ReturnOperatorPriority(const char symbol) {
+Priority ReturnPriorityStack(const char symbol) {
 
-	switch (symbol) {
-	case kOpenBracket: return 0;
-	case kCloseBracket: return 1;
-	case kPlus: return 2;
-	case kMinus: return 2;
-	case kMul: return 3;
-	case kDiv: return 3;
-	case kPower: return 4;
-	};
+	if (SymbolIsOperator(symbol)) {
+
+		switch (symbol) {
+		case kOpenBracket: return 0;
+		case kCloseBracket: return 10;
+		case kPlus: return 2;
+		case kMinus: return 2;
+		case kMul: return 4;
+		case kDiv: return 4;
+		case kPower: return 5;
+		case '!':return -1;
+		};
+
+	}
+	else
+		return 8;
 
 }
+
+Priority ReturnPriorityRel(const char symbol) {
+
+	if (SymbolIsOperator(symbol)) {
+
+		switch (symbol) {
+		case kOpenBracket: return 9;
+		case kCloseBracket: return 0;
+		case kPlus: return 1;
+		case kMinus: return 1;
+		case kMul: return 3;
+		case kDiv: return 3;
+		case kPower: return 6;
+		};
+
+	}
+	else
+		return 7;
+
+}
+
+//Priority ReturnPriorityRel(const char symbol) {
+//
+//	switch (symbol) {
+//	case kOpenBracket: return 9;
+//	case kCloseBracket: return 0;
+//	case kPlus: return 1;
+//	case kMinus: return 1;
+//	case kMul: return 3;
+//	case kDiv: return 3;
+//	case kPower: return 6;
+//	};
+//
+//}
 
 int CountRang(const std::string& expression) {
 
@@ -62,88 +103,57 @@ int CountRang(const std::string& expression) {
 
 std::string ConvertToRevPolExpr(const std::string& expression) {
 
-	Stack<char> operators_stack;
+	Stack<char> stack;
 
 	std::string reverse_pol_expr{};
 	reverse_pol_expr.reserve(expression.size());
 
+	stack.push('!');
+
 	for (auto it = expression.cbegin(); it != expression.cend(); it++) {
 
-		const char symbol = *it;
+		char symbol = *it;
 
-		if (SymbolIsOperator(symbol)) {
+		Priority priority = ReturnPriorityRel(symbol);
 
-			if (!operators_stack.empty()) {
+		if (priority == 7) {
+			reverse_pol_expr.push_back(symbol);
+			continue;
+		}
 
-				const Priority symbol_priority = ReturnOperatorPriority(symbol);
-				const char top_operator = operators_stack.top();
-				Priority stack_top_priority = ReturnOperatorPriority(top_operator);
-				const bool push_to_stack = (symbol_priority == 0) || (symbol_priority >= stack_top_priority);
+		if (priority == 0) {
 
-				if (push_to_stack) operators_stack.push(symbol);
-				else
-					if (symbol != kCloseBracket) {
-						
-						char top_operator = operators_stack.pop();
-						reverse_pol_expr.push_back(top_operator);
+			while (ReturnPriorityStack(stack.top()) != 0)
+				reverse_pol_expr.push_back(stack.pop());
 
-						bool stack_is_empty = operators_stack.empty();
-						if (!stack_is_empty) {
+			symbol = stack.pop();
+			continue;
+		}
 
-							Priority top_operator_priority = ReturnOperatorPriority(operators_stack.top());
-							
-							while (top_operator_priority >= symbol_priority && !stack_is_empty) {
+		if (priority > ReturnPriorityStack(stack.top())) {
+			stack.push(symbol);
+		}
+		else {
 
-								if (!operators_stack.empty()) {
-
-									top_operator = operators_stack.pop();
-									reverse_pol_expr.push_back(top_operator);
-									top_operator_priority = ReturnOperatorPriority(top_operator);
-
-								}
-								else
-									stack_is_empty = true;
-							}
-
-						}
-						operators_stack.push(symbol);
-						
-					}
-					else {
-
-						bool stack_is_empty = false;
-						char top_operator = operators_stack.pop();
-					
-						while (top_operator != kOpenBracket && !stack_is_empty){
-							
-							reverse_pol_expr.push_back(top_operator);
-							
-							if (!operators_stack.empty())
-								top_operator = operators_stack.pop();
-							else
-								stack_is_empty = true;
-
-						} 
-						
-
-					}
-
+			while (priority <= ReturnPriorityStack(stack.top())) {
+				reverse_pol_expr.push_back(stack.pop());
 
 			}
-			else
-				operators_stack.push(symbol);
 
-		}//Symbol is operand
-		else
-			reverse_pol_expr.push_back(symbol);
+			stack.push(symbol);
+
+		}
 
 	}
 
-	while (!operators_stack.empty()) {
-		
-		const char top_operator = operators_stack.pop();
-		reverse_pol_expr.push_back(top_operator);
+	if (!stack.empty() ) {
+		char symbol = stack.top();
 
+		while (!stack.empty() && stack.top() != '!') {
+			reverse_pol_expr.push_back(stack.pop());
+			if(!stack.empty())
+			symbol = stack.top();
+		}
 	}
 
 	return reverse_pol_expr;
