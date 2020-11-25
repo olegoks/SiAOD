@@ -1,0 +1,2 @@
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\Debug\priority_queue_2.exe
+D:\C++\SiAOD\Laboratory_work_3\priority_queue_2\Debug\priority_queue_2.pdb
