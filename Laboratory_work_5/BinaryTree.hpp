@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <functional>
+#include <iostream>
 
 //Построить дерево двоичного поиска, вывести на экран(одним из 3 способов), сделать 3 полных обхода,указав об вывести их на экран.
 //Правая прошивка, вывести на экран
@@ -69,102 +70,173 @@ public:
 	
 	}
 
-	void SetProcessVertexFunc(const std::function<void(const Vertex&)> func)const noexcept(true) { 
+	inline void SetProcessVertexFunc(const std::function<void(const Vertex&)> func)const noexcept(true) { 
 	
 		process_vertex_ = func;
 	
 	};
 	
 	
-	void TraversePreorder()noexcept(true) {
+	void TraversePreorder()noexcept(true);
+	void TraverseInorder() noexcept(true);
+	void TraversePostorder()noexcept(true);
+	void TraversePreorder(const Vertex& vertex)noexcept(true);
+	void TraverseInorder(const Vertex& vertex) noexcept(true);
+	void TraversePostorder(const Vertex& vertex)noexcept(true);
 
-		process_vertex_(*root_);
-		if (root_->left_ != nullptr) TraversePreorder(*root_->left_);
-		if (root_->right_ != nullptr) TraversePreorder(*root_->right_);
-		
-	}
+	void Add(Vertex& vertex, const DataType& data)noexcept(true);
+
+	void Add(const DataType& data)noexcept(true);
+
+};
+
+template<class DataType>
+void BinaryTree<DataType>::TraverseInorder() noexcept(true){
 	
-	void TraversePreorder(const Vertex& vertex)noexcept(true) {
+	std::cout << " " << root_->data_ << " ";
+	if (root_->left_ != nullptr) TraverseInorder(*root_->left_);
+	else
+		std::cout << " 0 ";
 
-		process_vertex_(vertex);
-		if (vertex.left_ != nullptr) TraversePreorder(*(vertex.left_));
-		if (vertex.right_ != nullptr) TraversePreorder(*(vertex.right_));
+	process_vertex_(*root_);
 
-	}
+	if (root_->right_ != nullptr) TraverseInorder(*root_->right_);
+	else
+		std::cout << " 0 ";
 
+	std::cout << " " << root_->data_ << " ";
+}
+
+template<class DataType>
+void BinaryTree<DataType>::TraverseInorder(const Vertex& vertex) noexcept(true) {
 	
-	void TraverseInorder() noexcept(true) {
+	std::cout << " " << vertex.data_ << " ";
+	if (vertex.left_ != nullptr) TraverseInorder(*(vertex.left_));
+	else
+		std::cout << " 0 ";
 
-		if (root_->left_ != nullptr) TraverseInorder(*root_->left_);
-		process_vertex_(*root_);
-		if (root_->right_ != nullptr) TraverseInorder(*root_->right_);
+	process_vertex_(vertex);
 
-	}
+	if (vertex.right_ != nullptr) TraverseInorder(*(vertex.right_));
+	else
+		std::cout << " 0 ";
 
-	void TraverseInorder(const Vertex& vertex) noexcept(true) {
+	std::cout << " " << vertex.data_ << " ";
 
-		if (vertex.left_ != nullptr) TraverseInorder(*vertex.left_);
-		process_vertex_(vertex);
-		if (vertex.right_ != nullptr) TraverseInorder(*vertex.right_);
 
-	}
+}
 
-	void TraversePostorder()noexcept(true) {
 
-		if (root_->left_ != nullptr) TraverseInorder(*root_->left_);
-		if (root_->right_ != nullptr) TraverseInorder(*root_->right_);
-		process_vertex_(*root_);
 
-	}
+template<class DataType>
+void BinaryTree<DataType>::TraversePostorder() noexcept(true){
 
-	void TraversePostorder(const Vertex* vertex)noexcept(true) {
+	std::cout << " " << root_->data_ << " ";
 
-		if (vertex.left_ != nullptr) TraverseInorder(*vertex.left_);
-		if (vertex.right_ != nullptr) TraverseInorder(*vertex.right_);
-		process_vertex_(vertex);
+	if (root_->left_ != nullptr) TraversePostorder(*root_->left_);
+	else
+		std::cout << " 0 ";
 
-	}
+	std::cout << " " << root_->data_ << " ";
 
-	void Add(Vertex& vertex, const DataType& data)noexcept(true) {
+	if (root_->right_ != nullptr) TraversePostorder(*root_->right_);
+	else
+		std::cout << " 0 ";
 
-		if (data < vertex.data_) {
+	process_vertex_(*root_);
 
-			if (vertex.left_ != nullptr) {
+}
 
-				Add(*vertex.left_, data);
+template<class DataType>
+void BinaryTree<DataType>::TraversePostorder(const Vertex& vertex) noexcept(true) {
 
-			} else {
+	std::cout << " " << vertex.data_ << " ";
+	
+	if (vertex.left_ != nullptr) TraversePostorder(*(vertex.left_));
+		else 
+			std::cout << " 0 ";
 
-				vertex.left_.reset(new Vertex{ data });
+	std::cout << " " << vertex.data_ << " ";
 
-			}
+	if (vertex.right_ != nullptr) TraversePostorder(*(vertex.right_));
+	else
+		std::cout << " 0 ";
+
+	process_vertex_(vertex);
+
+}
+
+template<class DataType>
+void BinaryTree<DataType>::TraversePreorder(const Vertex& vertex) noexcept(true){
+
+	process_vertex_(vertex);
+
+	if (vertex.left_ != nullptr) TraversePreorder(*(vertex.left_));
+	else 
+		std::cout << " 0 ";
+	
+	std::cout << " " << vertex.data_ << " ";
+
+	if (vertex.right_ != nullptr)TraversePreorder(*(vertex.right_));
+	else 
+		std::cout << " 0 ";
+
+	std::cout << " " << vertex.data_ << " ";
+
+}
+
+template<class DataType>
+void BinaryTree<DataType>::TraversePreorder() noexcept(true) {
+
+	process_vertex_(*root_);
+	if (root_->left_ != nullptr) 
+		TraversePreorder(*root_->left_);
+	
+	std::cout << " " << root_->data_ << " ";
+
+	if (root_->right_ != nullptr) 
+		TraversePreorder(*root_->right_);
+
+	std::cout << " " << root_->data_ << " ";
+
+}
+
+template<class DataType>
+void BinaryTree<DataType>::Add(Vertex& vertex, const DataType& data) noexcept(true){
+
+	if (data < vertex.data_) {
+
+		if (vertex.left_ != nullptr) {
+
+			Add(*vertex.left_, data);
 
 		} else {
 
-			if (vertex.right_ != nullptr) {
+			vertex.left_.reset(new Vertex{ data });
 
-				Add(*vertex.right_, data);
+		}
 
-			}
-			else {
+	} else {
 
-				vertex.right_.reset(new Vertex{ data });
+		if (vertex.right_ != nullptr) {
 
-			}
+			Add(*vertex.right_, data);
+
+		} else {
+
+			vertex.right_.reset(new Vertex{ data });
 
 		}
 
 	}
 
-	void Add(const DataType& data)noexcept(true) {
-		
-		Add(*root_, data);
-	
-	};
+}
 
-	/*void Delete(const DataType& data)noexcept(true);
-	size_t Size()const noexcept(true);*/
+template<class DataType>
+inline void BinaryTree<DataType>::Add(const DataType& data) noexcept(true){
 
-};
+	Add(*root_, data);
+
+}
+
 #endif //_BINARYTREE_HPP_
-
