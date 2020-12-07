@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #ifndef _BINARYTREE_HPP_
 #define _BINARYTREE_HPP_
@@ -7,14 +7,14 @@
 #include <functional>
 #include <iostream>
 
-//Построить дерево двоичного поиска, вывести на экран(одним из 3 способов), сделать 3 полных обхода,указав об вывести их на экран.
-//Правая прошивка, вывести на экран
-//Выполнить удаление из деерва(прошитого) выполнить дерево на экран
+//РџРѕСЃС‚СЂРѕРёС‚СЊ РґРµСЂРµРІРѕ РґРІРѕРёС‡РЅРѕРіРѕ РїРѕРёСЃРєР°, РІС‹РІРµСЃС‚Рё РЅР° СЌРєСЂР°РЅ(РѕРґРЅРёРј РёР· 3 СЃРїРѕСЃРѕР±РѕРІ), СЃРґРµР»Р°С‚СЊ 3 РїРѕР»РЅС‹С… РѕР±С…РѕРґР°,СѓРєР°Р·Р°РІ РѕР± РІС‹РІРµСЃС‚Рё РёС… РЅР° СЌРєСЂР°РЅ.
+//РџСЂР°РІР°СЏ РїСЂРѕС€РёРІРєР°, РІС‹РІРµСЃС‚Рё РЅР° СЌРєСЂР°РЅ
+//Р’С‹РїРѕР»РЅРёС‚СЊ СѓРґР°Р»РµРЅРёРµ РёР· РґРµРµСЂРІР°(РїСЂРѕС€РёС‚РѕРіРѕ) РІС‹РїРѕР»РЅРёС‚СЊ РґРµСЂРµРІРѕ РЅР° СЌРєСЂР°РЅ
 //
-//Последнее задание по методичке
+//РџРѕСЃР»РµРґРЅРµРµ Р·Р°РґР°РЅРёРµ РїРѕ РјРµС‚РѕРґРёС‡РєРµ
 
 template<class DataType>
-class BinaryTree final{
+class BinaryTree {
 public:
 	
 	class Vertex;
@@ -70,6 +70,11 @@ public:
 	
 	}
 
+	explicit BinaryTree()noexcept(true):
+		root_{ nullptr },
+		process_vertex_{ [](const Vertex& vertex)->void {} }{}
+
+
 	inline void SetProcessVertexFunc(const std::function<void(const Vertex&)> func)const noexcept(true) { 
 	
 		process_vertex_ = func;
@@ -88,40 +93,103 @@ public:
 
 	void Add(const DataType& data)noexcept(true);
 
+
+	struct node_print_state_t {
+		struct node_print_state_t* child_state;
+		int printing_last_child;
+	};
+
+	struct node_print_state_t* _root_state = NULL;
+
+	void print_subtree(const std::shared_ptr<Vertex>& node) {
+
+		node_print_state_t* parent_state;
+		if (_root_state != NULL) {
+			printf(" ");
+			node_print_state_t* s = _root_state;
+			while (s->child_state != NULL) {
+				printf(s->printing_last_child ? "  " : "| ");
+				s = s->child_state;
+			}
+			parent_state = s;
+			printf(parent_state->printing_last_child ? "L" : "+");
+		}
+		else {
+			parent_state = NULL;
+		}
+		printf(">%i\n", node->data_);
+
+		if ((node->left_ != NULL) || (node->right_!= NULL)) { // ГҐГ±Г«ГЁ ГҐГ±ГІГј Г¤ГҐГІГЁ
+			struct node_print_state_t s;
+			if (parent_state != NULL) {
+				parent_state->child_state = &s;
+			}
+			else {
+				_root_state = &s;
+			}
+			s.child_state = NULL;
+
+			// ГЇГҐГ·Г ГІГ ГҐГ¬ Г¤ГҐГІГҐГ©
+			if (node->left_ != NULL) {
+				s.printing_last_child = (node->right_ == NULL);
+				print_subtree(node->left_);
+			}
+			if (node->right_ != NULL) {
+				s.printing_last_child = 1;
+				print_subtree(node->right_);
+			}
+
+			if (parent_state != NULL) {
+				parent_state->child_state = NULL;
+			}
+			else {
+				_root_state = NULL;
+			}
+		}
+	}
+
+	void print_tree() {
+
+		if (root_ != nullptr) {
+			print_subtree(root_);
+		}
+
+	}
+
 };
 
 template<class DataType>
 void BinaryTree<DataType>::TraverseInorder() noexcept(true){
 	
-	std::cout << " " << root_->data_ << " ";
+	std::cout << root_->data_;
 	if (root_->left_ != nullptr) TraverseInorder(*root_->left_);
 	else
-		std::cout << " 0 ";
+		std::cout << "0";
 
 	process_vertex_(*root_);
 
 	if (root_->right_ != nullptr) TraverseInorder(*root_->right_);
 	else
-		std::cout << " 0 ";
+		std::cout << "0";
 
-	std::cout << " " << root_->data_ << " ";
+	std::cout << root_->data_ ;
 }
 
 template<class DataType>
 void BinaryTree<DataType>::TraverseInorder(const Vertex& vertex) noexcept(true) {
 	
-	std::cout << " " << vertex.data_ << " ";
+	std::cout << vertex.data_ ;
 	if (vertex.left_ != nullptr) TraverseInorder(*(vertex.left_));
 	else
-		std::cout << " 0 ";
+		std::cout << "0";
 
 	process_vertex_(vertex);
 
 	if (vertex.right_ != nullptr) TraverseInorder(*(vertex.right_));
 	else
-		std::cout << " 0 ";
+		std::cout << "0";
 
-	std::cout << " " << vertex.data_ << " ";
+	std::cout << vertex.data_;
 
 
 }
@@ -131,17 +199,17 @@ void BinaryTree<DataType>::TraverseInorder(const Vertex& vertex) noexcept(true) 
 template<class DataType>
 void BinaryTree<DataType>::TraversePostorder() noexcept(true){
 
-	std::cout << " " << root_->data_ << " ";
+	std::cout << root_->data_ ;
 
 	if (root_->left_ != nullptr) TraversePostorder(*root_->left_);
 	else
-		std::cout << " 0 ";
+		std::cout << "0";
 
-	std::cout << " " << root_->data_ << " ";
+	std::cout << root_->data_ ;
 
 	if (root_->right_ != nullptr) TraversePostorder(*root_->right_);
 	else
-		std::cout << " 0 ";
+		std::cout << "0";
 
 	process_vertex_(*root_);
 
@@ -150,17 +218,17 @@ void BinaryTree<DataType>::TraversePostorder() noexcept(true){
 template<class DataType>
 void BinaryTree<DataType>::TraversePostorder(const Vertex& vertex) noexcept(true) {
 
-	std::cout << " " << vertex.data_ << " ";
+	std::cout << vertex.data_ ;
 	
 	if (vertex.left_ != nullptr) TraversePostorder(*(vertex.left_));
 		else 
-			std::cout << " 0 ";
+			std::cout << "0";
 
-	std::cout << " " << vertex.data_ << " ";
+	std::cout << vertex.data_ ;
 
 	if (vertex.right_ != nullptr) TraversePostorder(*(vertex.right_));
 	else
-		std::cout << " 0 ";
+		std::cout << "0";
 
 	process_vertex_(vertex);
 
@@ -173,15 +241,15 @@ void BinaryTree<DataType>::TraversePreorder(const Vertex& vertex) noexcept(true)
 
 	if (vertex.left_ != nullptr) TraversePreorder(*(vertex.left_));
 	else 
-		std::cout << " 0 ";
+		std::cout << "0";
 	
-	std::cout << " " << vertex.data_ << " ";
+	std::cout << vertex.data_;
 
 	if (vertex.right_ != nullptr)TraversePreorder(*(vertex.right_));
 	else 
-		std::cout << " 0 ";
+		std::cout << "0";
 
-	std::cout << " " << vertex.data_ << " ";
+	std::cout << vertex.data_;
 
 }
 
@@ -192,12 +260,12 @@ void BinaryTree<DataType>::TraversePreorder() noexcept(true) {
 	if (root_->left_ != nullptr) 
 		TraversePreorder(*root_->left_);
 	
-	std::cout << " " << root_->data_ << " ";
+	std::cout << root_->data_;
 
 	if (root_->right_ != nullptr) 
 		TraversePreorder(*root_->right_);
 
-	std::cout << " " << root_->data_ << " ";
+	std::cout << root_->data_ ;
 
 }
 
@@ -234,8 +302,11 @@ void BinaryTree<DataType>::Add(Vertex& vertex, const DataType& data) noexcept(tr
 
 template<class DataType>
 inline void BinaryTree<DataType>::Add(const DataType& data) noexcept(true){
-
-	Add(*root_, data);
+	
+	if (root_ == nullptr)
+		root_ = std::make_shared<Vertex>(data);
+	else
+		Add(*root_, data);
 
 }
 
