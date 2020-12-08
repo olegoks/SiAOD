@@ -130,13 +130,13 @@ public:
 			s.child_state = NULL;
 
 			// ïå÷àòàåì äåòåé
-			if (node->left_ != NULL) {
-				s.printing_last_child = (node->right_ == NULL);
-				print_subtree(node->left_);
-			}
 			if (node->right_ != NULL) {
-				s.printing_last_child = 1;
+				s.printing_last_child = (node->left_ == NULL);
 				print_subtree(node->right_);
+			}
+			if (node->left_ != NULL) {
+				s.printing_last_child = 1;
+				print_subtree(node->left_);
 			}
 
 			if (parent_state != NULL) {
